@@ -1,0 +1,35 @@
+<svg cache-id="6a324d84fb02457bbc7bb788a2d667eb" id="ec6gLKdeDap1" class="theme-mode-toggle-svg light-to-dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" width="20"  height="20" >
+    <g id="ec6gLKdeDap2" mask="url(#ec6gLKdeDap13-sidebar)">
+      <g id="ec6gLKdeDap3_to" transform="translate(10,10)">
+        <g id="ec6gLKdeDap3" transform="translate(-10,-10)">
+          <ellipse id="ec6gLKdeDap4" rx="4" ry="4" transform="matrix(1 0 0 1 10 10)" fill="#EBAF26" stroke="none" stroke-width="0px"></ellipse>
+          <rect id="ec6gLKdeDap5" width="3" height="2" rx="1" ry="1" transform="matrix(1 0 0 1 2 9)" fill="#EBAF26" stroke="none" stroke-width="0px"></rect>
+          <rect id="ec6gLKdeDap6" width="3" height="2" rx="1" ry="1" transform="matrix(1 0 0 1 15 9)" fill="#EBAF26" stroke="none" stroke-width="0px"></rect>
+          <rect id="ec6gLKdeDap7" width="3" height="2" rx="1" ry="1" transform="matrix(0 -1 1 0 9 18)" fill="#EBAF26" stroke="none" stroke-width="0px"></rect>
+          <rect id="ec6gLKdeDap8" width="3" height="2" rx="1" ry="1" transform="matrix(0 -1 1 0 9 5)" fill="#EBAF26" stroke="none" stroke-width="0px"></rect>
+          <ellipse id="ec6gLKdeDap9" rx="1" ry="1" transform="matrix(1 0 0 1 15 5)" fill="#EBAF26" stroke="none" stroke-width="0px"></ellipse>
+          <ellipse id="ec6gLKdeDap10" rx="1" ry="1" transform="matrix(1 0 0 1 15 15)" fill="#EBAF26" stroke="none" stroke-width="0px"></ellipse>
+          <ellipse id="ec6gLKdeDap11" rx="1" ry="1" transform="matrix(1 0 0 1 5 15)" fill="#EBAF26" stroke="none" stroke-width="0px"></ellipse>
+          <ellipse id="ec6gLKdeDap12" rx="1" ry="1" transform="matrix(1 0 0 1 5 5)" fill="#EBAF26" stroke="none" stroke-width="0px"></ellipse>
+        </g>
+      </g>
+      <mask id="ec6gLKdeDap13-sidebar" mask-type="luminance">
+        <g id="ec6gLKdeDap14_to" transform="translate(8.000001,6)">
+          <rect id="ec6gLKdeDap14" width="20" height="20" rx="0" ry="0" transform="translate(-8,-8)" fill="#FFFFFF" stroke="none" stroke-width="0px"></rect>
+        </g>
+      </mask>
+    </g>
+    <g id="ec6gLKdeDap15_to" transform="translate(10,19.5)">
+      <rect id="ec6gLKdeDap15" width="12" height="1" rx="0.5" ry="0.5" transform="translate(-6,-0.5)" fill="#EBAF26" fill-opacity="0" stroke="none" stroke-width="0px"></rect>
+    </g>
+    <g id="ec6gLKdeDap16_to" transform="translate(12.798746,21.693594)">
+      <rect id="ec6gLKdeDap16" width="8" height="1" rx="0.5" ry="0.5" transform="translate(-6.798746,-0.693594)" fill="#EBAF26" fill-opacity="0" stroke="none" stroke-width="0px"></rect>
+    </g>
+    <g id="ec6gLKdeDap17_to" transform="translate(1,-3)">
+      <g id="ec6gLKdeDap17" transform="translate(0,0)">
+        <g id="ec6gLKdeDap18_to" transform="translate(13.315335,6.057362)">
+          <path id="ec6gLKdeDap18" d="M2.37783,13.0022C1.58522,12.2096,0.986546,11.3242,0.581809,10.3461C0.193936,9.35111,0,8.33084,0,7.28526C0.016864,6.2397,0.227665,5.22785,0.632401,4.24974C1.03714,3.25476,1.64424,2.35253,2.45372,1.54306C2.70073,1.29604,2.95251,1.06925,3.20904,0.86267C3.58926,0.556495,4.0804,0.995663,3.95335,1.46701C3.80603,2.0135,3.71933,2.58694,3.69322,3.1873C3.6595,4.35092,3.83657,5.48081,4.22444,6.57698C4.61231,7.67314,5.19412,8.60909,5.96987,9.38484C6.76248,10.1774,7.70686,10.7677,8.80303,11.1556C9.89919,11.5434,11.0206,11.7205,12.1674,11.6868C12.7806,11.6601,13.368,11.5702,13.9297,11.4171C14.3989,11.2892,14.8337,11.7764,14.5295,12.1559C14.3196,12.4176,14.0888,12.6744,13.8369,12.9263C13.0275,13.7358,12.1252,14.3429,11.1303,14.7476C10.1521,15.1523,9.14031,15.3547,8.09474,15.3547C7.04917,15.3716,6.02889,15.1861,5.03391,14.7982C4.0558,14.3935,3.17044,13.7948,2.37783,13.0022Z" transform="translate(-7.315335,-8.058393)" fill="#6D7175" fill-opacity="0" stroke="none" stroke-width="1"></path>
+        </g>
+      </g>
+    </g>
+  </svg>
