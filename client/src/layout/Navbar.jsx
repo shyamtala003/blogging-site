@@ -1,9 +1,8 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/Screenshot__112_-removebg-preview.png";
 import moon from "../assets/moon.svg";
 import sun from "../assets/sun.svg";
-import menu_light from "../assets/menu_light.svg";
-import close_light from "../assets/close_light.svg";
+import Hamburger from "hamburger-react";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -11,20 +10,20 @@ const Navbar = () => {
   return (
     <>
       <nav>
-        <div className="logo">
+        <Link to="/" className="logo">
           <img src={logo} alt="logo" className="logo_image" />
-        </div>
+        </Link>
 
         <div className="nav_links">
           <button className="theme_toggler">
             <img src={sun} alt="" />
           </button>
-          <a href="#" className="nav_link">
+          <Link to="/login" className="nav_link">
             Log in
-          </a>
-          <a href="#" className="nav_link">
+          </Link>
+          <Link to="/register" className="nav_link">
             Sign up
-          </a>
+          </Link>
         </div>
 
         <button
@@ -33,7 +32,12 @@ const Navbar = () => {
             setOpenNavbar(!openNavbar);
           }}
         >
-          <img src={openNavbar ? close_light : menu_light} alt="" />
+          <Hamburger
+            toggled={openNavbar}
+            toggle={setOpenNavbar}
+            color="#fff"
+            size={20}
+          />
         </button>
 
         <div

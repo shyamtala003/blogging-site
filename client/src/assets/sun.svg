@@ -1,5 +1,5 @@
 <svg cache-id="6a324d84fb02457bbc7bb788a2d667eb" id="ec6gLKdeDap1" class="theme-mode-toggle-svg light-to-dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" width="20"  height="20" >
-    <g id="ec6gLKdeDap2" mask="url(#ec6gLKdeDap13-sidebar)">
+    <g id="ec6gLKdeDap2" mask="url(#ec6gLKdeDap13)">
       <g id="ec6gLKdeDap3_to" transform="translate(10,10)">
         <g id="ec6gLKdeDap3" transform="translate(-10,-10)">
           <ellipse id="ec6gLKdeDap4" rx="4" ry="4" transform="matrix(1 0 0 1 10 10)" fill="#EBAF26" stroke="none" stroke-width="0px"></ellipse>
@@ -13,7 +13,7 @@
           <ellipse id="ec6gLKdeDap12" rx="1" ry="1" transform="matrix(1 0 0 1 5 5)" fill="#EBAF26" stroke="none" stroke-width="0px"></ellipse>
         </g>
       </g>
-      <mask id="ec6gLKdeDap13-sidebar" mask-type="luminance">
+      <mask id="ec6gLKdeDap13" mask-type="luminance">
         <g id="ec6gLKdeDap14_to" transform="translate(8.000001,6)">
           <rect id="ec6gLKdeDap14" width="20" height="20" rx="0" ry="0" transform="translate(-8,-8)" fill="#FFFFFF" stroke="none" stroke-width="0px"></rect>
         </g>
