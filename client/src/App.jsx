@@ -1,11 +1,15 @@
 import "./App.css";
-import logo1 from "./assets/Screenshot__112_-removebg-preview.png";
+import BlogCard from "./components/BlogCard";
 import Navbar from "./layout/Navbar";
 
 function App() {
   return (
     <main className="dark">
       <Navbar></Navbar>
+      <section className="blog_container">
+        <BlogCard></BlogCard>
+        <BlogCard></BlogCard>
+      </section>
     </main>
   );
 }
