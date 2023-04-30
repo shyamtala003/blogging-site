@@ -50,12 +50,12 @@ const Navbar = () => {
             <button className="theme_toggler">
               <img src={sun} alt="" />
             </button>
-            <a href="#" className="nav_link">
+            <Link to="/login" className="nav_link">
               Log in
-            </a>
-            <a href="#" className="nav_link">
+            </Link>
+            <Link to="/register" className="nav_link">
               Sign up
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
