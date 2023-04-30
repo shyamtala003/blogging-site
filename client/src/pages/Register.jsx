@@ -13,13 +13,13 @@ const Register = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function registerUser(e) {
     e.preventDefault();
-
+    setLoading(true);
     try {
       let url = import.meta.env.VITE_API_URL;
-      console.log(url);
       let response = await Axios.post(`${url}/register`, {
         userName: userName,
         password: password,
@@ -29,8 +29,10 @@ const Register = () => {
       setUserName("");
       setEmail("");
       setPassword("");
+      setLoading(false);
     } catch (error) {
       if (error.response.data.success === false) {
+        setLoading(false);
         setToastMessage({
           type: "error",
           message: error.response.data.message,
@@ -56,6 +58,7 @@ const Register = () => {
             onChange={(e) => {
               setUserName(e.target.value);
             }}
+            disabled={loading ? true : false}
           />
         </div>
         <div className="input_group">
@@ -70,6 +73,7 @@ const Register = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            disabled={loading ? true : false}
           />
         </div>
         <div className="input_group">
@@ -84,11 +88,28 @@ const Register = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            disabled={loading ? true : false}
           />
         </div>
-        <button type="submit" className="register_btn">
-          Register
-        </button>
+        {loading ? (
+          <button
+            disabled={true}
+            style={{ cursor: "no-drop" }}
+            className="register_btn"
+          >
+            <div className="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </button>
+        ) : (
+          <button type="submit" className="register_btn">
+            Register
+          </button>
+        )}
+
         <div className="external_login_divider">
           <span className="external_login_divider_text">or</span>
         </div>
