@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import logo from "../assets/Screenshot__112_-removebg-preview.png";
 import googleLogo from "../assets/google.svg";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // toast message context
 import toastMessageContext from "../context/ToastContext";
@@ -9,6 +10,8 @@ import toastMessageContext from "../context/ToastContext";
 const Register = () => {
   // toastmessage context
   let { setToastMessage } = useContext(toastMessageContext);
+
+  let navigate = useNavigate();
 
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -30,6 +33,7 @@ const Register = () => {
       setEmail("");
       setPassword("");
       setLoading(false);
+      navigate("/");
     } catch (error) {
       if (error.response.data.success === false) {
         setLoading(false);
@@ -110,13 +114,13 @@ const Register = () => {
           </button>
         )}
 
-        <div className="external_login_divider">
+        {/* <div className="external_login_divider">
           <span className="external_login_divider_text">or</span>
         </div>
         <a href="/" className="external_btn">
           <img src={googleLogo} alt="" />
           <span>Continue with Google</span>
-        </a>
+        </a> */}
       </form>
     </div>
   );

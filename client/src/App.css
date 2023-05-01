@@ -341,7 +341,7 @@ section.blog_container {
 
 .login,
 .register {
-  padding: 20px;
+  padding: 60px 40px;
   max-width: 440px;
   width: 90%;
   margin: 0 auto;
