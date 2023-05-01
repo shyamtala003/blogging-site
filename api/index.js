@@ -3,11 +3,13 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const connectToDB = require("./config/dbConnection");
+const cookieParser = require("cookie-parser");
 
 // set default middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
+app.use(cookieParser());
 
 // connect app to database
 connectToDB();
