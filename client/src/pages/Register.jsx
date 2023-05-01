@@ -4,13 +4,18 @@ import googleLogo from "../assets/google.svg";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// userloggedin context
+import userLoggedinContext from "../context/UserLoggedin";
+
 // toast message context
 import toastMessageContext from "../context/ToastContext";
 
 const Register = () => {
-  // toastmessage context
+  // toastmessage provider
   let { setToastMessage } = useContext(toastMessageContext);
 
+  // userloggedn provider
+  let { userLoggedIn, setUserLoggedIn } = useContext(userLoggedinContext);
   let navigate = useNavigate();
 
   const [userName, setUserName] = useState("");
@@ -33,6 +38,10 @@ const Register = () => {
       setEmail("");
       setPassword("");
       setLoading(false);
+      setUserLoggedIn({
+        value: true,
+        username: response.data.message.username,
+      });
       navigate("/");
     } catch (error) {
       if (error.response.data.success === false) {

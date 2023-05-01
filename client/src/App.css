@@ -10,7 +10,7 @@
   --bg-primary: #0d1213;
   --bg-secondary: #151d1e;
 
-  --bg-primary-opacity: rgba(13, 18, 19, 0.9);
+  --bg-primary-opacity: rgba(13, 18, 19, 0.7);
   --bg-secodary-opacity: rgba(21, 29, 30, 0.9);
 
   --text-primary: #d7d7db;
@@ -164,6 +164,11 @@ nav .menu_toggler {
     background: transparent;
     border: none;
     cursor: pointer;
+  }
+
+  nav .mobile_menu .nav_links_mobile .nav_link.logout {
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   nav .mobile_menu .nav_links_mobile .nav_link:hover,

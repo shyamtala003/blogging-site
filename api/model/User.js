@@ -39,6 +39,8 @@ UserSchema.methods.isValidatedPassword = async function (password) {
 UserSchema.methods.generateJwtToken = function () {
   const jwtPayload = {
     id: this._id,
+    userName: this.userName,
+    email: this.email,
   };
 
   const jwtOptions = {

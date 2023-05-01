@@ -1,4 +1,5 @@
 const User = require("../model/User");
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   try {
@@ -32,7 +33,7 @@ exports.register = async (req, res) => {
       })
       .json({
         success: true,
-        message: { token },
+        message: { token, username: user.userName },
       });
   } catch (error) {
     res.status(200).json({ success: false, message: { error } });
@@ -83,9 +84,38 @@ exports.login = async (req, res) => {
       })
       .json({
         success: true,
-        message: { token },
+        message: { token, username: user.userName },
       });
   } catch (error) {
     console.log(error);
   }
+};
+
+exports.profile = async (req, res) => {
+  const token =
+    req.cookies.token ||
+    req.body.token ||
+    (req.header("Authorization")
+      ? req.header("Authorization").replace("Bearer ", "")
+      : false);
+
+  // 2.if token to exist then send error response
+  if (!token) {
+    return res.status(402).json({ success: false, message: "token not found" });
+  }
+
+  let decode;
+  try {
+    decode = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    // 3.if token is not validated
+    return res.status(402).send("token is not validate " + error.message);
+  }
+
+  // 4. if token is validate then find user in database
+  res.status(200).json(decode);
+};
+
+exports.logout = (req, res) => {
+  res.status(200).clearCookie("token").json({ success: true, message: {} });
 };

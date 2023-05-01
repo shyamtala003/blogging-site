@@ -10,14 +10,30 @@ import Register from "./pages/Register";
 
 // toast message context
 import toastMessageContext from "./context/ToastContext";
+// userloggedin context
+import userLoggedInContext from "./context/UserLoggedin";
+
 import { useEffect, useState } from "react";
 
 function App() {
   const [toastMessage, setToastMessage] = useState({});
+  const [userLoggedIn, setUserLoggedIn] = useState({ value: false });
 
   useEffect(() => {
     if (toastMessage.type === "error") {
       toast.error(toastMessage.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+    if (toastMessage.type === "success") {
+      toast.success(toastMessage.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -44,17 +60,20 @@ function App() {
         pauseOnHover
         theme="colored"
       />
-      <toastMessageContext.Provider value={{ setToastMessage }}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout></Layout>}>
-              <Route index element={<IndexPage></IndexPage>}></Route>
-              <Route path="login" element={<Login></Login>}></Route>
-              <Route path="register" element={<Register></Register>}></Route>
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </toastMessageContext.Provider>
+
+      <userLoggedInContext.Provider value={{ userLoggedIn, setUserLoggedIn }}>
+        <toastMessageContext.Provider value={{ setToastMessage }}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout></Layout>}>
+                <Route index element={<IndexPage></IndexPage>}></Route>
+                <Route path="login" element={<Login></Login>}></Route>
+                <Route path="register" element={<Register></Register>}></Route>
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </toastMessageContext.Provider>
+      </userLoggedInContext.Provider>
     </>
   );
 }

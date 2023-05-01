@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 // set default middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser());
 
 // connect app to database

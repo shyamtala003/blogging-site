@@ -6,9 +6,15 @@ import { useNavigate } from "react-router-dom";
 // toast message context
 import toastMessageContext from "../context/ToastContext";
 
+// user is loggedin or not context
+import userLoggedinContext from "../context/UserLoggedin";
+
 const Login = () => {
   // toastmessage context
   let { setToastMessage } = useContext(toastMessageContext);
+
+  // userloggedn provider
+  let { userLoggedIn, setUserLoggedIn } = useContext(userLoggedinContext);
 
   let navigate = useNavigate();
 
@@ -29,6 +35,10 @@ const Login = () => {
       setEmail("");
       setPassword("");
       setLoading(false);
+      setUserLoggedIn({
+        value: true,
+        username: response.data.message.username,
+      });
       navigate("/");
     } catch (error) {
       if (error.response.data.success === false) {
