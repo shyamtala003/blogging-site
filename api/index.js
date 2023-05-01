@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 // set default middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({ origin: "https://dotblogs.vercel.app/", credentials: true }));
+app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
 app.use(cookieParser());
 
 // connect app to database
