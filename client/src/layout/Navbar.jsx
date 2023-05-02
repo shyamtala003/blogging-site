@@ -69,7 +69,7 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/create-post" className="nav_link">
+              <Link to="/create" className="nav_link">
                 Create New Post
               </Link>
               <button onClick={logout} className="nav_link">
@@ -114,7 +114,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to="/create-post" className="nav_link">
+                <Link to="/create" className="nav_link">
                   Create New Post
                 </Link>
                 <button onClick={logout} className="nav_link  logout">

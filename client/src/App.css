@@ -26,6 +26,10 @@ img {
   max-width: 100%;
 }
 
+button {
+  cursor: pointer;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -192,6 +196,7 @@ section.blog_container {
   font-family: var(--font-inter);
   margin-inline: auto;
   max-width: 90%;
+  width: 90%;
   display: grid;
   grid-template-columns: 0.7fr 1.3fr;
   gap: 16px;
@@ -206,13 +211,14 @@ section.blog_container {
 }
 
 .blog .blog_image {
-  max-height: 330px;
+  min-height: 340px;
+  max-height: 430px;
 }
 
 .blog_image img {
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  /* object-fit: cover; */
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
 }
@@ -272,7 +278,6 @@ section.blog_container {
   .blog_image img {
     height: 100%;
     width: 100%;
-    object-fit: cover;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     border-bottom-left-radius: 0px;
@@ -471,3 +476,79 @@ button.register_btn {
 }
 
 /* -------------registe login page ended---------------- */
+
+/* --------------css for create post form-------------------- */
+form.create_post {
+  margin: 0 auto;
+  max-width: 90%;
+  background: var(--bg-secondary);
+  padding: 40px 20px;
+  font-family: var(--font-inter);
+}
+
+.create_post input {
+  margin-bottom: 20px;
+  width: 100%;
+  background: var(--bg-primary-opacity);
+  border: none;
+  padding: 9px 14px;
+  border-radius: 2px;
+  font-size: 16px;
+  color: var(--text-primary);
+  caret-color: var(--text-lime-15);
+  font-family: var(--font-inter);
+}
+
+.create_post input::placeholder {
+  text-transform: capitalize;
+  font-family: var(--font-inter);
+}
+
+.create_post input:focus {
+  outline: 2px solid #63f44c;
+}
+
+.create_post input[type="file"]::-webkit-file-upload-button {
+  background: var(--text-lime-15);
+}
+.quill {
+  color: #d7d7db;
+}
+
+.ql-snow .ql-stroke {
+  fill: none;
+  stroke: var(--text-lime-15) !important;
+}
+
+.ql-snow * {
+  box-sizing: border-box;
+  background: var(--bg-primary) !important;
+}
+
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+  border: 2px solid var(--bg-primary) !important;
+}
+
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+  fill: var(--text-lime-15) !important;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item::before {
+  content: "Normal";
+  color: var(--text-lime-15) !important;
+}
+
+button.submit_post {
+  margin-top: 35px;
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--text-lime-15);
+  color: var(--bg-primary);
+  font-family: var(--font-inter);
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+}

@@ -7,6 +7,7 @@ import IndexPage from "./pages/IndexPage";
 import "./App.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import CreatePost from "./pages/CreatePost";
 
 // toast message context
 import toastMessageContext from "./context/ToastContext";
@@ -69,6 +70,10 @@ function App() {
                 <Route index element={<IndexPage></IndexPage>}></Route>
                 <Route path="login" element={<Login></Login>}></Route>
                 <Route path="register" element={<Register></Register>}></Route>
+                <Route
+                  path="create"
+                  element={<CreatePost></CreatePost>}
+                ></Route>
               </Route>
             </Routes>
           </BrowserRouter>
