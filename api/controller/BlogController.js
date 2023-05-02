@@ -67,9 +67,23 @@ exports.createPost = async (req, res) => {
 // fetch all blog posts
 exports.getAllBlogs = async (req, res) => {
   try {
-    let blogs = await Post.find().populate("author");
+    let blogs = await Post.find()
+      .populate("author")
+      .sort({ createdAt: -1 })
+      .limit(20);
     res.status(200).json({ success: true, message: { ...blogs } });
   } catch (error) {
     res.status(400).json({ success: false, message: error });
+  }
+};
+
+// fetch perticular blog posts
+exports.fetchBlogPosts = async (req, res) => {
+  try {
+    const blogId = req.params.blogId;
+    let blog = await Post.findById({ _id: blogId }).populate("author");
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(401).json({ success: false, message: error });
   }
 };
