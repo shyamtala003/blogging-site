@@ -4,6 +4,8 @@ import Axios from "axios";
 
 const IndexPage = () => {
   let [blogs, setBlogs] = useState([]);
+  let [loading, setLoading] = useState("true");
+
   useEffect(() => {
     try {
       (async () => {
@@ -24,6 +26,7 @@ const IndexPage = () => {
           };
         });
         setBlogs(response);
+        setLoading(false);
       })();
     } catch (error) {
       console.log(error);
@@ -32,7 +35,8 @@ const IndexPage = () => {
 
   return (
     <section className="blog_container">
-      {blogs.length >= 0 &&
+      {loading === false &&
+        blogs.length >= 0 &&
         blogs.map((blog) => {
           return (
             <BlogCard
@@ -46,6 +50,142 @@ const IndexPage = () => {
             ></BlogCard>
           );
         })}
+
+      {/* set skeleton effect when page is loading */}
+      {loading && (
+        <>
+          <main className="loading_container">
+            <ul className="o-vertical-spacing o-vertical-spacing--l">
+              <li className="blog-post o-media">
+                <div className="o-media__figure">
+                  <span
+                    className="skeleton-box"
+                    style={{ width: "100%", height: "100%" }}
+                  ></span>
+                </div>
+                <div className="o-media__body">
+                  <div className="o-vertical-spacing">
+                    <h3 className="blog-post__headline">
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "55%" }}
+                      ></span>
+                    </h3>
+                    <p>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "80%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "90%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "83%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "80%" }}
+                      ></span>
+                    </p>
+                    <div className="blog-post__meta">
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "70px" }}
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li className="blog-post o-media">
+                <div className="o-media__figure">
+                  <span
+                    className="skeleton-box"
+                    style={{ width: "100%", height: "100%" }}
+                  ></span>
+                </div>
+                <div className="o-media__body">
+                  <div className="o-vertical-spacing">
+                    <h3 className="blog-post__headline">
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "55%" }}
+                      ></span>
+                    </h3>
+                    <p>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "80%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "90%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "83%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "80%" }}
+                      ></span>
+                    </p>
+                    <div className="blog-post__meta">
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "70px" }}
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li className="blog-post o-media">
+                <div className="o-media__figure">
+                  <span
+                    className="skeleton-box"
+                    style={{ width: "100%", height: "100%" }}
+                  ></span>
+                </div>
+                <div className="o-media__body">
+                  <div className="o-vertical-spacing">
+                    <h3 className="blog-post__headline">
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "55%" }}
+                      ></span>
+                    </h3>
+                    <p>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "80%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "90%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "83%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "80%" }}
+                      ></span>
+                    </p>
+                    <div className="blog-post__meta">
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "70px" }}
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </main>
+        </>
+      )}
     </section>
   );
 };
