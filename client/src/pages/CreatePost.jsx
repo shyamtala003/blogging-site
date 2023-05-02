@@ -73,10 +73,13 @@ const CreatePost = () => {
     data.set("file", files[0]);
     data.set("description", description);
 
+    let token = localStorage.getItem("token");
+    let headers = { Authorization: `Bearer ${token}` };
+
     let url = import.meta.env.VITE_API_URL;
 
     try {
-      let response = await Axios.post(`${url}/post`, data);
+      let response = await Axios.post(`${url}/post`, data, { headers });
       document.querySelector(".create_post").reset();
       setLoading(false);
       setDescription("");
