@@ -26,7 +26,6 @@ exports.register = async (req, res) => {
     // 5. return response
     res
       .cookie("token", token, {
-        httpOnly: true,
         expires: new Date(
           Date.now() + process.env.COOKIE_EXPIRY * 24 * 60 * 60 * 1000
         ),
@@ -77,7 +76,6 @@ exports.login = async (req, res) => {
     user.password = undefined;
     res
       .cookie("token", token, {
-        httpOnly: true,
         expires: new Date(
           Date.now() + process.env.COOKIE_EXPIRY * 24 * 60 * 60 * 1000
         ),
