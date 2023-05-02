@@ -15,6 +15,7 @@ import toastMessageContext from "./context/ToastContext";
 import userLoggedInContext from "./context/UserLoggedin";
 
 import { useEffect, useState } from "react";
+import BlogView from "./pages/BlogView";
 
 function App() {
   const [toastMessage, setToastMessage] = useState({});
@@ -74,6 +75,7 @@ function App() {
                   path="create"
                   element={<CreatePost></CreatePost>}
                 ></Route>
+                <Route path="blog/:id" element={<BlogView></BlogView>}></Route>
               </Route>
             </Routes>
           </BrowserRouter>

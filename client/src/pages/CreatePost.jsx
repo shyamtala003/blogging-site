@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import ReactQuill from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
+const CodeBlock = Quill.import("formats/code-block");
 import "react-quill/dist/quill.snow.css";
 
 import userLoggedinContext from "../context/UserLoggedin";
@@ -7,6 +8,41 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // toast message context
 import toastMessageContext from "../context/ToastContext";
+
+// code for code block
+
+function insertCodeBlock() {
+  const range = this.quill.getSelection();
+  this.quill.insertText(range.index, "\n``` \n\n```");
+  this.quill.setSelection(range.index + 5, 0);
+}
+
+const modules = {
+  toolbar: {
+    container: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image", "code-block"],
+      ["clean"],
+    ],
+    handlers: {
+      "code-block": insertCodeBlock,
+    },
+  },
+  clipboard: {
+    matchVisual: false,
+  },
+};
+
+Quill.register(CodeBlock, true);
+// code for code block
 
 const CreatePost = () => {
   let navigate = useNavigate();
@@ -28,39 +64,6 @@ const CreatePost = () => {
       navigate("/");
     }
   }, []);
-
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, false] }],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [
-        { list: "ordered" },
-        { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
-      ],
-      ["link", "image"],
-      ["clean"],
-    ],
-  };
-
-  const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "color",
-    "code",
-  ];
 
   async function handlePostForm(e) {
     e.preventDefault();
@@ -141,6 +144,8 @@ const CreatePost = () => {
           type="file"
           name="blog_image"
           required
+          accept="image/*"
+          placeholder="enter your blog content here"
           onChange={(e) => {
             setFiles(e.target.files);
           }}
@@ -148,13 +153,15 @@ const CreatePost = () => {
         />
         <ReactQuill
           theme="snow"
+          // modules={modules}
           modules={modules}
-          formats={formats}
+          // formats={formats}
           value={description}
           onChange={setDescription}
           required={true}
           isRequired={true}
         ></ReactQuill>
+
         {loading ? (
           <>
             <button

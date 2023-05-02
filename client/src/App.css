@@ -275,7 +275,9 @@ main.loading_container {
 }
 
 /* ----------------END css for skeleton effect----------------- */
-
+.blog_link {
+  text-decoration: none;
+}
 .blog_container .blog {
   font-family: var(--font-inter);
   margin-inline: auto;
@@ -381,8 +383,8 @@ main.loading_container {
     max-height: 230px;
   }
   .blog_image img {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
     border-bottom-left-radius: 0px;
     object-fit: cover;
   }
@@ -636,4 +638,34 @@ button.submit_post {
   font-size: 16px;
   font-weight: 700;
   border: none;
+}
+
+/* code for blog view page */
+.full_blog_view {
+  max-width: 90%;
+  margin: 0 auto;
+  color: var(--text-primary);
+  font-family: var(--font-inter);
+}
+
+.full_blog_view h1.blog_title {
+  text-align: center;
+  font-size: 34px;
+}
+
+.full_blog_view .blog_date {
+  color: var(--text-lime-15);
+  text-align: center;
+  margin: 10px 0 0 0;
+}
+
+.full_blog_view .blog_author {
+  color: var(--text-lime-15);
+  text-align: center;
+  margin: 5px 0 4% 0;
+}
+
+.full_blog_view .blog_image {
+  width: 100%;
+  margin-bottom: 5%;
 }

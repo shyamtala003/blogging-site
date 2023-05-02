@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import BlogCard from "../components/BlogCard";
+
 import Axios from "axios";
 
 const IndexPage = () => {
@@ -23,6 +24,7 @@ const IndexPage = () => {
             subject: value.subject,
             summary: value.summary,
             coverImage: value.coverImage,
+            createdAt: value.createdAt,
           };
         });
         setBlogs(response);
@@ -41,12 +43,13 @@ const IndexPage = () => {
           return (
             <BlogCard
               key={blog.blogId}
+              id={blog.blogId}
               title={blog.title}
               summary={blog.summary}
-              description={blog.description}
               subject={blog.subject}
               coverImage={blog.coverImage}
               author={blog.author}
+              createdAt={blog.createdAt}
             ></BlogCard>
           );
         })}
