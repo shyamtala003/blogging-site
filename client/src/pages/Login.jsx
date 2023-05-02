@@ -27,10 +27,14 @@ const Login = () => {
     setLoading(true);
     try {
       let url = import.meta.env.VITE_API_URL;
-      let response = await Axios.post(`${url}/login`, {
-        email: String(email).toLowerCase(),
-        password: password,
-      });
+      let response = await Axios.post(
+        `${url}/login`,
+        {
+          email: String(email).toLowerCase(),
+          password: password,
+        },
+        { withCredentials: true }
+      );
 
       setEmail("");
       setPassword("");

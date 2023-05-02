@@ -8,7 +8,9 @@ const IndexPage = () => {
     try {
       (async () => {
         let url = import.meta.env.VITE_API_URL;
-        let { data } = await Axios.get(`${url}/post`);
+        let { data } = await Axios.get(`${url}/post`, {
+          withCredentials: true,
+        });
         let { message } = data;
         const response = Object.values(message).map((value) => {
           return {
@@ -22,7 +24,6 @@ const IndexPage = () => {
           };
         });
         setBlogs(response);
-        console.log(response);
       })();
     } catch (error) {
       console.log(error);

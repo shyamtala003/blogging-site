@@ -28,11 +28,15 @@ const Register = () => {
     setLoading(true);
     try {
       let url = import.meta.env.VITE_API_URL;
-      let response = await Axios.post(`${url}/register`, {
-        userName: userName,
-        password: password,
-        email: String(email).toLowerCase(),
-      });
+      let response = await Axios.post(
+        `${url}/register`,
+        {
+          userName: userName,
+          password: password,
+          email: String(email).toLowerCase(),
+        },
+        { withCredentials: true }
+      );
 
       setUserName("");
       setEmail("");
