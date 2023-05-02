@@ -300,6 +300,7 @@ section.blog_container {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0px;
+    object-fit: cover;
   }
 
   .blog_content {

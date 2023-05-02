@@ -38,6 +38,10 @@ const Register = () => {
         { withCredentials: true }
       );
 
+      // set token into  localstorage for further use
+      let token = response.data.message.token;
+      localStorage.setItem("token", token);
+
       setUserName("");
       setEmail("");
       setPassword("");

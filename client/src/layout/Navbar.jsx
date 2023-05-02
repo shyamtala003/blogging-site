@@ -19,7 +19,14 @@ const Navbar = () => {
   useEffect(() => {
     let url = import.meta.env.VITE_API_URL;
     Axios.defaults.withCredentials = true;
-    Axios.get(`${url}/profile`)
+
+    const token = localStorage.getItem("token");
+
+    Axios.get(`${url}/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
         setUserLoggedIn({ value: true, username: res.data.userName });
       })
@@ -32,6 +39,7 @@ const Navbar = () => {
 
   // logout user
   function logout() {
+    localStorage.removeItem("token");
     let url = import.meta.env.VITE_API_URL;
     Axios.defaults.withCredentials = true;
     Axios.post(`${url}/logout`)
