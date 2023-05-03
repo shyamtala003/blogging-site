@@ -63,7 +63,7 @@ const IndexPage = () => {
                 <div className="o-media__figure">
                   <span
                     className="skeleton-box"
-                    style={{ width: "100%", height: "100%" }}
+                    style={{ width: "90%", height: "40vh" }}
                   ></span>
                 </div>
                 <div className="o-media__body">
@@ -105,7 +105,7 @@ const IndexPage = () => {
                 <div className="o-media__figure">
                   <span
                     className="skeleton-box"
-                    style={{ width: "100%", height: "100%" }}
+                    style={{ width: "100%", height: "40vh" }}
                   ></span>
                 </div>
                 <div className="o-media__body">
@@ -147,7 +147,7 @@ const IndexPage = () => {
                 <div className="o-media__figure">
                   <span
                     className="skeleton-box"
-                    style={{ width: "100%", height: "100%" }}
+                    style={{ width: "100%", height: "40vh" }}
                   ></span>
                 </div>
                 <div className="o-media__body">

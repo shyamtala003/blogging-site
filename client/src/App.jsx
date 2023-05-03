@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Layout from "./layout/Layout";
 import IndexPage from "./pages/IndexPage";
+import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -66,6 +67,7 @@ function App() {
       <userLoggedInContext.Provider value={{ userLoggedIn, setUserLoggedIn }}>
         <toastMessageContext.Provider value={{ setToastMessage }}>
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Layout></Layout>}>
                 <Route index element={<IndexPage></IndexPage>}></Route>
