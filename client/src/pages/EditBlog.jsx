@@ -48,7 +48,7 @@ const EditBlog = () => {
   let navigate = useNavigate();
 
   // toastmessage context provider
-  let { setToastMessage } = useContext(toastMessageContext);
+  let { toastMessage, setToastMessage } = useContext(toastMessageContext);
 
   const [loading, setLoading] = useState(true);
 
@@ -100,18 +100,14 @@ const EditBlog = () => {
 
     try {
       let response = await Axios.post(`${url}/edit`, data, { headers });
-      //   document.querySelector(".create_post").reset();
       setLoading(false);
-      console.log(response.data);
-      //   setDescription("");
-      //   setToastMessage({
-      //     type: "success",
-      //     message: "New Blog Post  Added",
-      //   });
-      //   navigate("/");
+      setToastMessage({
+        type: "success",
+        message: "Blog Successfully Edited.",
+      });
+      navigate(`/blog/${id}`);
     } catch (error) {
       setLoading(false);
-      console.log(error);
       setToastMessage({
         type: "error",
         message: error?.response?.data?.message,
