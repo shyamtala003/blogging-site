@@ -38,7 +38,7 @@ const BlogView = () => {
     if (navigator.share) {
       navigator
         .share({
-          text: `${post.title} <img src="${post.coverImage}" alt="Shared image" />`,
+          text: `${post.title} <img src=${post.coverImage} alt="Shared image" />`,
           url: window.location.href,
         })
         .then(() => {})
