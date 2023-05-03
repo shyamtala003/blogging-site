@@ -14,6 +14,8 @@ import CreatePost from "./pages/CreatePost";
 import toastMessageContext from "./context/ToastContext";
 // userloggedin context
 import userLoggedInContext from "./context/UserLoggedin";
+// theme context
+import ThemeContest from "./context/ThemeContest";
 
 import { useEffect, useState } from "react";
 import BlogView from "./pages/BlogView";
@@ -22,6 +24,7 @@ import EditBlog from "./pages/EditBlog";
 function App() {
   const [toastMessage, setToastMessage] = useState({});
   const [userLoggedIn, setUserLoggedIn] = useState({ value: false });
+  const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
     if (toastMessage.type === "error") {
@@ -67,22 +70,33 @@ function App() {
 
       <userLoggedInContext.Provider value={{ userLoggedIn, setUserLoggedIn }}>
         <toastMessageContext.Provider value={{ setToastMessage }}>
-          <BrowserRouter>
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Layout></Layout>}>
-                <Route index element={<IndexPage></IndexPage>}></Route>
-                <Route path="login" element={<Login></Login>}></Route>
-                <Route path="register" element={<Register></Register>}></Route>
-                <Route
-                  path="create"
-                  element={<CreatePost></CreatePost>}
-                ></Route>
-                <Route path="blog/:id" element={<BlogView></BlogView>}></Route>
-                <Route path="edit/:id" element={<EditBlog></EditBlog>}></Route>
-              </Route>
-            </Routes>
-          </BrowserRouter>
+          <ThemeContest.Provider value={{ theme, setTheme }}>
+            <BrowserRouter>
+              <ScrollToTop />
+              <Routes>
+                <Route path="/" element={<Layout></Layout>}>
+                  <Route index element={<IndexPage></IndexPage>}></Route>
+                  <Route path="login" element={<Login></Login>}></Route>
+                  <Route
+                    path="register"
+                    element={<Register></Register>}
+                  ></Route>
+                  <Route
+                    path="create"
+                    element={<CreatePost></CreatePost>}
+                  ></Route>
+                  <Route
+                    path="blog/:id"
+                    element={<BlogView></BlogView>}
+                  ></Route>
+                  <Route
+                    path="edit/:id"
+                    element={<EditBlog></EditBlog>}
+                  ></Route>
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </ThemeContest.Provider>
         </toastMessageContext.Provider>
       </userLoggedInContext.Provider>
     </>

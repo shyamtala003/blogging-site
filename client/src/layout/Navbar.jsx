@@ -8,6 +8,9 @@ import { useContext, useEffect, useState } from "react";
 // toast message context
 import toastMessageContext from "../context/ToastContext";
 
+// theme context
+import ThemeContext from "../context/ThemeContest";
+
 import userLoggedinContext from "../context/UserLoggedin";
 import Axios from "axios";
 
@@ -15,6 +18,7 @@ const Navbar = () => {
   let { userLoggedIn, setUserLoggedIn } = useContext(userLoggedinContext);
   // toastmessage context provider
   let { setToastMessage } = useContext(toastMessageContext);
+  let { theme, setTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     let url = import.meta.env.VITE_API_URL;
@@ -68,8 +72,13 @@ const Navbar = () => {
           </Link>
 
           <div className="nav_links">
-            <button className="theme_toggler">
-              <img src={sun} alt="" />
+            <button
+              className="theme_toggler"
+              onClick={() => {
+                setTheme(theme === "dark" ? "light" : "dark");
+              }}
+            >
+              <img src={theme === "dark" ? sun : moon} alt="" />
             </button>
             {!userLoggedIn.value ? (
               <>
@@ -101,7 +110,7 @@ const Navbar = () => {
             <Hamburger
               toggled={openNavbar}
               toggle={setOpenNavbar}
-              color="#fff"
+              color={theme === "dark" ? "#fff" : "#000"}
               size={20}
             />
           </button>
@@ -113,8 +122,13 @@ const Navbar = () => {
             }}
           >
             <div className="nav_links_mobile">
-              <button className="theme_toggler">
-                <img src={sun} alt="" />
+              <button
+                className="theme_toggler"
+                onClick={() => {
+                  setTheme(theme === "dark" ? "light" : "dark");
+                }}
+              >
+                <img src={theme === "dark" ? sun : moon} alt="" />
               </button>
               {!userLoggedIn.value ? (
                 <>

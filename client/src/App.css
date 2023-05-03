@@ -26,6 +26,26 @@
   --font-inter: "Inter", sans-serif;
 }
 
+.light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0f3fa;
+  --bg-blueis: #ebd3f9;
+
+  --bg-primary-opacity: rgba(255, 255, 255, 0.4);
+  --bg-secodary-opacity: rgba(255, 255, 255, 0.9);
+
+  --text-primary: #5c5f62;
+  --text-secondary: #000000;
+  --text-secondary-2: #3e104d;
+  --text-lime-15: #00573f;
+  --text-lime-12: #028761;
+
+  --border-color-primary: #24393d;
+  --border-color-secondary: #9db8f7;
+
+  --font-inter: "Inter", sans-serif;
+}
+
 img {
   max-width: 100%;
 }
@@ -642,6 +662,16 @@ form.create_post {
   color: var(--text-lime-15) !important;
 }
 
+.ql-editor p,
+.ql-editor p span,
+.ql-editor p h1,
+.ql-editor p h2,
+.ql-editor p h3,
+.ql-editor *,
+.ql-editor > code {
+  color: var(--text-primary) !important;
+}
+
 button.submit_post {
   margin-top: 35px;
   width: 100%;
@@ -715,8 +745,10 @@ button.submit_post {
 .blog_description h2,
 .blog_description h3,
 .blog_description p > span,
-.blog_description p > strong {
+.blog_description p > strong,
+.blog_description p code {
   background-color: transparent !important;
+  color: var(--text-primary) !important;
 }
 
 .blog_description p code {
