@@ -1,17 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import dateFormat, { masks } from "dateformat";
-
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import editIcon from "../assets/edit.svg";
+
+import userLoggedinContext from "../context/UserLoggedin";
 
 const BlogView = () => {
-  let { id } = useParams();
+  const { id } = useParams();
   const blog = useRef(null);
-  let url = import.meta.env.VITE_API_URL;
-  let [post, setPost] = useState(false);
-  let [loading, setLoading] = useState(true);
+  const url = import.meta.env.VITE_API_URL;
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [resume, setResume] = useState(false);
+  const { userLoggedIn, setUserLoggedIn } = useContext(userLoggedinContext);
 
   async function fetchData() {
     let response = await axios.get(`${url}/blog/${id}`);
@@ -19,19 +21,15 @@ const BlogView = () => {
     setLoading(false);
   }
 
-  let message;
   const handleButtonClick = () => {
-    message = new SpeechSynthesisUtterance(blog.current.textContent);
+    let message = new SpeechSynthesisUtterance(blog.current.textContent);
     setIsSpeaking(true);
-    setResume(true);
     window.speechSynthesis.speak(message);
-    console.log("play");
   };
 
   const handleStopClick = () => {
     setIsSpeaking(false);
     window.speechSynthesis.cancel();
-    console.log("stop");
   };
 
   useEffect(() => {
@@ -40,9 +38,10 @@ const BlogView = () => {
 
   return (
     <>
+      {/* code for displaying fetched blog data  */}
       {!loading && (
         <div className="full_blog_view" ref={blog}>
-          {/* Render the title property of the post object */}
+          {/* code for blog text to audio controller */}
           {isSpeaking ? (
             <button className="audio_btn" onClick={handleStopClick}>
               <img src="https://img.icons8.com/nolan/64/pause.png" />
@@ -57,16 +56,23 @@ const BlogView = () => {
           <p className="blog_date">
             {dateFormat(post.createdAt, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
           </p>
-          <p className="blog_author">@{post.author.userName}</p>
+          <p className="blog_author">by @{post.author.userName}</p>
+          {post.author._id && userLoggedIn.userId && (
+            <>
+              <Link to={`/edit/${id}`} className="edit_Post">
+                <img src={editIcon} alt="" /> <span>Edit</span>
+              </Link>
+            </>
+          )}
           <img src={post.coverImage} alt="" className="blog_image" />
           <div
             className="blog_description"
             dangerouslySetInnerHTML={{ __html: post.description }}
           ></div>
-          {/* Render the description property of the post object */}
-          {/* Render other properties as needed */}
         </div>
       )}
+
+      {/* code for skeleton loading effect when data fetching  */}
       {loading && (
         <>
           <main className="loading_container">

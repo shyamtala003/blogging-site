@@ -19,8 +19,16 @@ const BlogCard = ({
         </div>
         <div className="blog_content">
           <span className="blog_type">{subject}</span>
-          <h1 className="blog_heading">{title}</h1>
-          <h3 className="blog_description">{summary}</h3>
+          <h1 className="blog_heading">
+            {String(title).length > 120
+              ? String(title).slice(0, 120).concat("...")
+              : title}
+          </h1>
+          <h3 className="blog_description">
+            {String(summary).length > 300
+              ? String(summary).slice(0, 300).concat("...")
+              : summary}
+          </h3>
           <div className="author_and_publish">
             <p className="author">{author.userName}</p>
             <span className="time">

@@ -28,7 +28,11 @@ const Navbar = () => {
       },
     })
       .then((res) => {
-        setUserLoggedIn({ value: true, username: res.data.userName });
+        setUserLoggedIn({
+          value: true,
+          username: res.data.userName,
+          userId: res.data.id,
+        });
       })
       .catch((err) => {
         console.log(err.message);
@@ -58,56 +62,12 @@ const Navbar = () => {
   return (
     <>
       <nav>
-        <Link to="/" className="logo">
-          <img src={logo} alt="logo" className="logo_image" />
-        </Link>
+        <div className="navbar_content">
+          <Link to="/" className="logo">
+            <img src={logo} alt="logo" className="logo_image" />
+          </Link>
 
-        <div className="nav_links">
-          <button className="theme_toggler">
-            <img src={sun} alt="" />
-          </button>
-          {!userLoggedIn.value ? (
-            <>
-              <Link to="/login" className="nav_link">
-                Log in
-              </Link>
-              <Link to="/register" className="nav_link">
-                Sign up
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/create" className="nav_link">
-                Create New Post
-              </Link>
-              <button onClick={logout} className="nav_link">
-                Logout ({userLoggedIn.username})
-              </button>
-            </>
-          )}
-        </div>
-
-        <button
-          className="menu_toggler"
-          onClick={() => {
-            setOpenNavbar(!openNavbar);
-          }}
-        >
-          <Hamburger
-            toggled={openNavbar}
-            toggle={setOpenNavbar}
-            color="#fff"
-            size={20}
-          />
-        </button>
-
-        <div
-          className={`mobile_menu ${openNavbar ? "navbar_open" : ""}`}
-          onClick={() => {
-            setOpenNavbar(!openNavbar);
-          }}
-        >
-          <div className="nav_links_mobile">
+          <div className="nav_links">
             <button className="theme_toggler">
               <img src={sun} alt="" />
             </button>
@@ -125,11 +85,57 @@ const Navbar = () => {
                 <Link to="/create" className="nav_link">
                   Create New Post
                 </Link>
-                <button onClick={logout} className="nav_link  logout">
+                <button onClick={logout} className="nav_link">
                   Logout ({userLoggedIn.username})
                 </button>
               </>
             )}
+          </div>
+
+          <button
+            className="menu_toggler"
+            onClick={() => {
+              setOpenNavbar(!openNavbar);
+            }}
+          >
+            <Hamburger
+              toggled={openNavbar}
+              toggle={setOpenNavbar}
+              color="#fff"
+              size={20}
+            />
+          </button>
+
+          <div
+            className={`mobile_menu ${openNavbar ? "navbar_open" : ""}`}
+            onClick={() => {
+              setOpenNavbar(!openNavbar);
+            }}
+          >
+            <div className="nav_links_mobile">
+              <button className="theme_toggler">
+                <img src={sun} alt="" />
+              </button>
+              {!userLoggedIn.value ? (
+                <>
+                  <Link to="/login" className="nav_link">
+                    Log in
+                  </Link>
+                  <Link to="/register" className="nav_link">
+                    Sign up
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/create" className="nav_link">
+                    Create New Post
+                  </Link>
+                  <button onClick={logout} className="nav_link  logout">
+                    Logout ({userLoggedIn.username})
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </nav>
