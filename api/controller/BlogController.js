@@ -68,7 +68,8 @@ exports.createPost = async (req, res) => {
 exports.getAllBlogs = async (req, res) => {
   try {
     let blogs = await Post.find()
-      .populate("author")
+      .select("title summary subject coverImage createdAt")
+      .populate("author", "userName")
       .sort({ createdAt: -1 })
       .limit(20);
     res.status(200).json({ success: true, message: { ...blogs } });

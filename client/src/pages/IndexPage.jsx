@@ -20,7 +20,6 @@ const IndexPage = () => {
             blogId: value._id,
             author: value.author,
             title: value.title,
-            description: value.description,
             subject: value.subject,
             summary: value.summary,
             coverImage: value.coverImage,
