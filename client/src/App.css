@@ -695,6 +695,18 @@ button.submit_post {
   border-radius: 16px;
 }
 
+.share_btn {
+  position: sticky;
+  top: 10%;
+  left: 100%;
+  border: none;
+  background: var(--bg-primary-opacity);
+  padding: 14px;
+  border-radius: 50%;
+  display: grid;
+  justify-items: center;
+}
+
 .edit_Post {
   text-decoration: none;
   max-width: 120px;

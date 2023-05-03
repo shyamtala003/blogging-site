@@ -3,6 +3,7 @@ import dateFormat, { masks } from "dateformat";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import editIcon from "../assets/edit.svg";
+import shareIcon from "../assets/share.svg";
 
 import userLoggedinContext from "../context/UserLoggedin";
 
@@ -30,6 +31,20 @@ const BlogView = () => {
   const handleStopClick = () => {
     setIsSpeaking(false);
     window.speechSynthesis.cancel();
+  };
+
+  // function for sharing blog with anyone
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          url: window.location.href,
+        })
+        .then(() => console.log("Successful share"))
+        .catch((error) => console.log("Error sharing:", error));
+    } else {
+      console.log("Web Share API not supported");
+    }
   };
 
   useEffect(() => {
@@ -64,6 +79,9 @@ const BlogView = () => {
               </Link>
             </>
           )}
+          <button onClick={handleShare} className="share_btn">
+            <img src={shareIcon} alt="" />
+          </button>
           <img src={post.coverImage} alt="" className="blog_image" />
           <div
             className="blog_description"
