@@ -338,7 +338,8 @@ main.loading_container {
 .blog_image img {
   height: 100%;
   width: 100%;
-  /* object-fit: cover; */
+  object-fit: cover;
+  object-position: center;
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
 }
