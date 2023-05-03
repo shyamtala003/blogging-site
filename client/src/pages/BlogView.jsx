@@ -38,9 +38,10 @@ const BlogView = () => {
     if (navigator.share) {
       navigator
         .share({
+          text: `${post.title} <img src="${post.coverImage}" alt="Shared image" />`,
           url: window.location.href,
         })
-        .then(() => console.log("Successful share"))
+        .then(() => {})
         .catch((error) => console.log("Error sharing:", error));
     } else {
       console.log("Web Share API not supported");
