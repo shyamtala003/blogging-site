@@ -88,3 +88,83 @@ exports.fetchBlogPosts = async (req, res) => {
     res.status(401).json({ success: false, message: error });
   }
 };
+
+// edit blog posts
+exports.editPost = async (req, res) => {
+  try {
+    // 1. get token and validate user
+    let decode;
+    const token =
+      req.cookies.token ||
+      req.body.token ||
+      (req.header("Authorization")
+        ? req.header("Authorization").replace("Bearer ", "")
+        : false);
+
+    // 2.if token to exist then send error response
+    if (!token) {
+      return res
+        .status(402)
+        .json({ success: false, message: "token not found" });
+    }
+
+    try {
+      decode = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (error) {
+      // 3.if token is not validated
+      return res.status(402).send("token is not validate " + error.message);
+    }
+
+    // 2. grab information from frontend
+    const imageFile = req.file;
+    const { title, summary, subject, description, currentImageUrl } = req.body;
+
+    // if any thing is missing from user input then
+    if (!(title && summary && description && subject)) {
+      return res.status(403).json({
+        success: false,
+        message: "please fill all the required fields",
+      });
+    }
+
+    // 3. upload image on cloudinary and grab image url from result
+    let coverImage;
+    if (req.file !== undefined) {
+      cloudinary.v2.uploader.destroy(cloudinary.url(currentImageUrl));
+      const result = await cloudinary.v2.uploader.upload(imageFile.path, {
+        folder: "dotblogs",
+      });
+      coverImage = result.secure_url;
+    }
+
+    // 4. store data into database
+    let post = await Post.findById({ _id: req.body._id });
+
+    // if anything is same as past then we don't want to change that data
+    if (post.title !== title) {
+      post.title = title;
+    }
+    if (post.description !== description) {
+      post.description = description;
+    }
+    if (post.summary !== summary) {
+      post.summary = summary;
+    }
+    if (post.subject !== subject) {
+      post.subject = subject;
+    }
+    if (post.coverImage !== coverImage) {
+      post.coverImage = coverImage;
+    }
+    let result = await post.save();
+    res.status(201).json({
+      success: true,
+      message: { result },
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
