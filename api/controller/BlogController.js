@@ -128,9 +128,9 @@ exports.editPost = async (req, res) => {
     }
 
     // 3. upload image on cloudinary and grab image url from result
-    let coverImage;
+    let coverImage = currentImageUrl;
     if (req.file !== undefined) {
-      cloudinary.v2.uploader.destroy(cloudinary.url(currentImageUrl));
+      await cloudinary.v2.uploader.destroy(cloudinary.url(currentImageUrl));
       const result = await cloudinary.v2.uploader.upload(imageFile.path, {
         folder: "dotblogs",
       });
@@ -154,7 +154,11 @@ exports.editPost = async (req, res) => {
       post.subject = subject;
     }
     if (post.coverImage !== coverImage) {
-      post.coverImage = coverImage;
+      try {
+        post.coverImage = coverImage;
+      } catch (error) {
+        return res.json({ error: "defined" + error });
+      }
     }
     let result = await post.save();
     res.status(201).json({
