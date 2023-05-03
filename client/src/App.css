@@ -673,8 +673,6 @@ button.submit_post {
 
 .full_blog_view .blog_description {
   font-family: var(--font-inter);
-  font-size: 17px;
-  line-height: 25px;
   overflow-x: hidden;
 }
 
@@ -684,15 +682,11 @@ button.submit_post {
 .blog_description h3,
 .blog_description p > span,
 .blog_description p > strong {
-  margin: 1% 0 1% 0;
-  text-align: justify;
   background-color: transparent !important;
 }
 
 .blog_description p code {
   background: var(--bg-secondary) !important;
-  /* color: var(--bg-primary) !important; */
-  padding: 0 5px;
 }
 
 .blog_description p img {
