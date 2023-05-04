@@ -3,9 +3,9 @@ import dateFormat, { masks } from "dateformat";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import editIcon from "../assets/edit.svg";
-import shareIcon from "../assets/share.svg";
 
 import userLoggedinContext from "../context/UserLoggedin";
+import ShareBlogLinks from "../components/ShareBlogLinks";
 
 const BlogView = () => {
   const { id } = useParams();
@@ -68,6 +68,13 @@ const BlogView = () => {
             </button>
           )}
 
+          {/* code for share blog buttons */}
+          <ShareBlogLinks
+            url={window.location.href}
+            title={post.title}
+            imageUrl={post.coverImage}
+          ></ShareBlogLinks>
+
           <h1 className="blog_title">{post.title}</h1>
           <p className="blog_date">
             {dateFormat(post.createdAt, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
@@ -80,9 +87,6 @@ const BlogView = () => {
               </Link>
             </>
           )}
-          <button onClick={handleShare} className="share_btn">
-            <img src={shareIcon} alt="" />
-          </button>
           <img src={post.coverImage} alt="" className="blog_image" />
           <div
             className="blog_description"

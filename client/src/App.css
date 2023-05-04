@@ -15,7 +15,7 @@
   --bg-secodary-opacity: rgba(21, 29, 30, 0.9);
 
   --text-primary: #d7d7db;
-  --text-secondary: #ffffff;
+  --text-secondary: #f5f5f5;
   --text-secondary-2: #eef1f1;
   --text-lime-15: #63f44c;
   --text-lime-12: #bffeb9;
@@ -696,22 +696,51 @@ button.submit_post {
   border-radius: 16px;
 }
 
-.share_btn {
-  position: sticky;
+.share_container {
+  position: fixed;
   top: 10%;
-  left: 100%;
+  right: 5%;
+  padding: 9px;
   border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  backdrop-filter: blur(5px);
   background: var(--bg-primary-opacity);
-  padding: 14px;
-  border-radius: 50%;
-  display: grid;
-  justify-items: center;
+  border-radius: 12px;
+}
+
+.share_btn {
+  background: transparent;
+  border: none;
+  display: flex;
+  padding: 6px;
+  justify-content: center;
+}
+.share_group {
+  display: none;
+  gap: 12px;
+}
+
+.copy_to_clipBoard {
+  background: transparent;
+  border: none;
+}
+
+.copy_to_clipBoard img {
+  width: 31px;
+}
+
+.show_share_group {
+  transition: 0.5s ease-in;
+  display: flex !important;
+  flex-direction: column;
 }
 
 .edit_Post {
   text-decoration: none;
   max-width: 120px;
-  margin: 12px 0 35px 50%;
+  margin: 12px 0 3% 50%;
   padding: 8px 25px;
   font-size: 18px;
   transform: translateX(-50%);
