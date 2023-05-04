@@ -46,6 +46,7 @@ exports.createPost = async (req, res) => {
     // 3. upload image on cloudinary and grab image url from result
     const result = await cloudinary.v2.uploader.upload(imageFile.path, {
       folder: "dotblogs",
+      format: "webp",
     });
     const coverImage = result.secure_url;
 
@@ -133,6 +134,7 @@ exports.editPost = async (req, res) => {
       await cloudinary.v2.uploader.destroy(cloudinary.url(currentImageUrl));
       const result = await cloudinary.v2.uploader.upload(imageFile.path, {
         folder: "dotblogs",
+        format: "webp",
       });
       coverImage = result.secure_url;
     }
