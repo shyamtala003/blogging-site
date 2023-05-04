@@ -7,6 +7,7 @@ const Layout = () => {
   let { theme } = useContext(ThemeContest);
   return (
     <main className={theme}>
+      <div className={theme === "dark" ? "fix_bg_dark" : "fix_bg_light"}></div>
       <Navbar></Navbar>
       <div className="main_content">
         <Outlet></Outlet>

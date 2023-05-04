@@ -76,9 +76,14 @@ const Navbar = () => {
               className="theme_toggler"
               onClick={() => {
                 setTheme(theme === "dark" ? "light" : "dark");
+                localStorage.setItem(
+                  "theme",
+                  theme === "dark" ? "light" : "dark"
+                );
               }}
             >
               <img src={theme === "dark" ? sun : moon} alt="" />
+              {theme === "dark" ? "Light" : "Dark"}
             </button>
             {!userLoggedIn.value ? (
               <>
@@ -126,9 +131,14 @@ const Navbar = () => {
                 className="theme_toggler"
                 onClick={() => {
                   setTheme(theme === "dark" ? "light" : "dark");
+                  localStorage.setItem(
+                    "theme",
+                    theme === "dark" ? "light" : "dark"
+                  );
                 }}
               >
                 <img src={theme === "dark" ? sun : moon} alt="" />
+                {theme === "dark" ? "Light" : "Dark"}
               </button>
               {!userLoggedIn.value ? (
                 <>

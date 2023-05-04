@@ -22,7 +22,6 @@ const ShareBlogLinks = ({ url, title, imageUrl }) => {
   const [show, setshow] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  console.log(title, url);
   return (
     <div className="share_container">
       <button

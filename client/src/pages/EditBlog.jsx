@@ -41,9 +41,6 @@ const modules = {
   },
 };
 
-Quill.register(CodeBlock, true);
-// code for code block
-
 const EditBlog = () => {
   let navigate = useNavigate();
 
@@ -51,7 +48,6 @@ const EditBlog = () => {
   let { toastMessage, setToastMessage } = useContext(toastMessageContext);
 
   const [loading, setLoading] = useState(true);
-
   const [title, setTitle] = useState("");
   const [summery, SetSummery] = useState("");
   const [subject, SetSubject] = useState("");
@@ -62,7 +58,15 @@ const EditBlog = () => {
   const { id } = useParams();
   let { userLoggedIn } = useContext(userLoggedinContext);
 
-  //   functionf for fetching blog present data from db
+  useEffect(() => {
+    if (userLoggedIn.value === false) {
+      return navigate("/");
+    } else {
+      fetchData();
+    }
+  }, []);
+
+  //functionf for fetching blog present data from db
   async function fetchData() {
     let response = await Axios.get(`${url}/blog/${id}`);
     setTitle(response.data.title);
@@ -72,14 +76,8 @@ const EditBlog = () => {
     setCurrentImage(response.data.coverImage);
     setLoading(false);
   }
-  useEffect(() => {
-    if (userLoggedIn.value === false) {
-      return navigate("/");
-    } else {
-      fetchData();
-    }
-  }, []);
 
+  // functionf or submiting changes in blog
   async function handleEditForm(e) {
     e.preventDefault();
     setLoading(true);
@@ -132,6 +130,10 @@ const EditBlog = () => {
                 <div className="o-media__figure"></div>
                 <div className="o-media__body">
                   <div className="o-vertical-spacing">
+                    <span
+                      className="skeleton-box"
+                      style={{ width: "100%", height: "40vh" }}
+                    ></span>
                     <h3 className="blog-post__headline">
                       <span
                         className="skeleton-box"
@@ -150,10 +152,6 @@ const EditBlog = () => {
                       <span
                         className="skeleton-box"
                         style={{ width: "83%" }}
-                      ></span>
-                      <span
-                        className="skeleton-box"
-                        style={{ width: "150px", height: "150px" }}
                       ></span>
                       <span
                         className="skeleton-box"
@@ -185,7 +183,7 @@ const EditBlog = () => {
                       ></span>
                       <span
                         className="skeleton-box"
-                        style={{ width: "150px", height: "150px" }}
+                        style={{ width: "100%", height: "40vh" }}
                       ></span>
                     </p>
                     <div className="blog-post__meta">
@@ -200,6 +198,18 @@ const EditBlog = () => {
                       <span
                         className="skeleton-box"
                         style={{ width: "90%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "90%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "83%" }}
+                      ></span>
+                      <span
+                        className="skeleton-box"
+                        style={{ width: "80%" }}
                       ></span>
                     </div>
                   </div>

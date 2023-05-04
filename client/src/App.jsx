@@ -24,8 +24,13 @@ import EditBlog from "./pages/EditBlog";
 function App() {
   const [toastMessage, setToastMessage] = useState({});
   const [userLoggedIn, setUserLoggedIn] = useState({ value: false });
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme")
+      ? localStorage.getItem("theme")
+      : localStorage.setItem("theme", "dark").getItem("theme")
+  );
 
+  console.log(localStorage.getItem("theme"));
   useEffect(() => {
     if (toastMessage.type === "error") {
       toast.error(toastMessage.message, {

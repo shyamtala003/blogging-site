@@ -40,8 +40,8 @@
   --text-lime-15: #00573f;
   --text-lime-12: #028761;
 
-  --border-color-primary: #24393d;
-  --border-color-secondary: #9db8f7;
+  --border-color-primary: #9db8f7;
+  --border-color-secondary: #24393d;
 
   --font-inter: "Inter", sans-serif;
 }
@@ -79,9 +79,65 @@ main {
 }
 
 .main_content {
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 0;
+}
+
+.fix_bg_dark::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50vh;
+  width: 100%;
+  background: url("./assets/bg.png");
+  background-size: cover;
+  background-position: center center;
+  z-index: 1;
+}
+.fix_bg_dark::before {
+  content: "";
+  position: fixed;
+  top: 16%;
+  left: 0;
+  height: 50vh;
+  width: 110%;
+  background: linear-gradient(
+    to bottom,
+    transparent 24%,
+    var(--bg-primary) 56%
+  );
+  z-index: 2;
+  filter: blur(27px);
+}
+.fix_bg_light::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50vh;
+  width: 100%;
+  background: url("./assets/bg-light.png");
+  background-size: cover;
+  background-position: center center;
+  z-index: 1;
+}
+.fix_bg_dark::before {
+  content: "";
+  position: fixed;
+  top: 16%;
+  left: 0;
+  height: 50vh;
+  width: 110%;
+  background: linear-gradient(
+    to bottom,
+    transparent 24%,
+    var(--bg-primary) 56%
+  );
+  z-index: 2;
+  filter: blur(27px);
 }
 
 /* --------------Navbar----------------  */
@@ -132,6 +188,11 @@ nav .navbar_content .nav_links {
   background: transparent;
   border: none;
   cursor: pointer;
+  color: var(--text-lime-12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .nav_links button img {
@@ -180,7 +241,7 @@ nav .menu_toggler {
     display: inline;
   }
 
-  nav .mobile_menu .nav_links_mobile {
+  .mobile_menu .nav_links_mobile {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -191,17 +252,22 @@ nav .menu_toggler {
     padding: 10px;
     border-radius: 8px;
   }
-  nav .mobile_menu .nav_links_mobile .nav_link {
+  .nav_links_mobile .nav_link {
     text-decoration: none;
     padding: 10px 20px;
     color: var(--text-primary);
+    font-size: 14px;
   }
 
-  nav .mobile_menu .nav_links_mobile button {
+  .nav_links_mobile button {
+    color: var(--text-primary);
     padding: 10px 20px;
     background: transparent;
     border: none;
     cursor: pointer;
+    display: flex;
+    gap: 12px;
+    align-items: center;
   }
 
   nav .mobile_menu .nav_links_mobile .nav_link.logout {
@@ -306,12 +372,14 @@ main.loading_container {
   width: 100%;
   margin: 0 auto;
   padding-inline: 10%;
+  z-index: 2;
 }
 
 /* ----------------END css for skeleton effect----------------- */
 .blog_link {
   text-decoration: none;
   padding: 16px;
+  z-index: 2;
 }
 .blog_container .blog {
   font-family: var(--font-inter);
@@ -601,11 +669,13 @@ button.register_btn {
 
 /* --------------css for create post form-------------------- */
 form.create_post {
+  position: relative;
   margin: 0 auto;
   max-width: 90%;
   background: var(--bg-secondary);
   padding: 40px 20px;
   font-family: var(--font-inter);
+  z-index: 3;
 }
 
 .create_post input {
@@ -694,6 +764,8 @@ button.submit_post {
   color: var(--text-primary);
   font-family: var(--font-inter);
   border-radius: 16px;
+  z-index: 2;
+  position: relative;
 }
 
 .share_container {
