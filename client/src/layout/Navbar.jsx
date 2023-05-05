@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/Screenshot__112_-removebg-preview.png";
+import logoDark from "../assets/Screenshot__112_-removebg-preview.png";
+import logoLight from "../assets/logo_light.png";
 import moon from "../assets/moon.svg";
 import sun from "../assets/sun.svg";
 import Hamburger from "hamburger-react";
@@ -68,7 +69,11 @@ const Navbar = () => {
       <nav>
         <div className="navbar_content">
           <Link to="/" className="logo">
-            <img src={logo} alt="logo" className="logo_image" />
+            <img
+              src={theme === "dark" ? logoDark : logoLight}
+              alt="logo"
+              className="logo_image"
+            />
           </Link>
 
           <div className="nav_links">
@@ -83,7 +88,6 @@ const Navbar = () => {
               }}
             >
               <img src={theme === "dark" ? sun : moon} alt="" />
-              {theme === "dark" ? "Light" : "Dark"}
             </button>
             {!userLoggedIn.value ? (
               <>
@@ -116,7 +120,7 @@ const Navbar = () => {
               toggled={openNavbar}
               toggle={setOpenNavbar}
               color={theme === "dark" ? "#fff" : "#000"}
-              size={20}
+              size={15}
             />
           </button>
 

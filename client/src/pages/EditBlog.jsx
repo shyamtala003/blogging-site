@@ -221,18 +221,26 @@ const EditBlog = () => {
       ) : (
         <>
           <form className="create_post" onSubmit={handleEditForm}>
+            <label htmlFor="title" className="editForm_label">
+              Title
+            </label>
             <input
               type="text"
               name="title"
               placeholder="title"
               spellCheck={true}
               required
+              id="title"
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
               readOnly={loading ? true : false}
             />
+
+            <label htmlFor="summery" className="editForm_label">
+              Summery
+            </label>
             <input
               type="summery"
               name="summery"
@@ -240,11 +248,16 @@ const EditBlog = () => {
               spellCheck={true}
               value={summery}
               required
+              id="summery"
               onChange={(e) => {
                 SetSummery(e.target.value);
               }}
               readOnly={loading ? true : false}
             />
+
+            <label htmlFor="subject" className="editForm_label">
+              Subject
+            </label>
             <input
               type="text"
               name="subject"
@@ -252,6 +265,7 @@ const EditBlog = () => {
               spellCheck={true}
               value={subject}
               required
+              id="subject"
               onChange={(e) => {
                 SetSubject(e.target.value);
               }}
@@ -280,6 +294,7 @@ const EditBlog = () => {
                 readOnly={loading ? true : false}
               />
             </div>
+
             <ReactQuill
               theme="snow"
               // modules={modules}
