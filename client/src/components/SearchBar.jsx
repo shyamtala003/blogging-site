@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import serarchIcons from "../assets/search_dark.svg";
 import SearchSuggestion from "./SearchSuggestion";
 import axios from "axios";
@@ -11,6 +11,31 @@ const SearchBar = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [response, setResponse] = useState([]);
+
+  let inputSearch = useRef(null);
+
+  // code for open and close searchbar using shortcuts
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      if (event.ctrlKey && event.key === "k") {
+        // Show the search bar
+        e.preventDefault();
+        setOpenSearchBar(true);
+      }
+
+      if (event.key === "Escape") {
+        e.preventDefault();
+        setOpenSearchBar(false);
+      }
+    });
+  }, []);
+
+  //   when search bar is opened then input field in on focus
+  useEffect(() => {
+    if (inputSearch.current) {
+      inputSearch.current.focus();
+    }
+  }, [SearchBar]);
 
   // function for searching blogs
   async function handleSearchBlog(e) {
@@ -55,6 +80,7 @@ const SearchBar = () => {
         >
           <img src={serarchIcons} alt="" />
           <input
+            ref={inputSearch}
             type="search"
             value={searchQuery}
             onChange={handleSearchBlog}
