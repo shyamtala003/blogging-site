@@ -91,7 +91,8 @@ main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 0;
-  background: var(--bg-primary);
+  /* background: var(--bg-primary); */
+  z-index: 4;
 }
 
 .fix_bg_dark::after {
@@ -118,7 +119,7 @@ main {
     transparent 24%,
     var(--bg-primary) 56%
   );
-  z-index: 2;
+  z-index: 1;
   filter: blur(27px);
 }
 .fix_bg_light::after {
@@ -301,7 +302,6 @@ section.blog_container {
   flex-direction: column;
   gap: 34px;
   width: 100%;
-  background: var(--bg-primary);
 }
 
 /* ----------------css for skeleton effect----------------- */
@@ -402,12 +402,12 @@ main.loading_container {
   gap: 16px;
   background: var(--bg-secondary);
   border-radius: 16px;
-  border: 3px solid var(--border-color-primary);
+  border: 3px solid var(--bg-lime-opacity);
   transition: all 0.5s;
 }
 
 .blog:hover {
-  border-color: var(--border-color-secondary);
+  border-color: var(--text-lime-15);
 }
 
 .blog .blog_image {
@@ -587,7 +587,7 @@ h1.form_heading {
 
 .form .input_group input.input_box {
   width: 100%;
-  background: var(--bg-primary-opacity);
+  background: var(--bg-lime-opacity);
   border: none;
   padding: 7px 10px;
   border-radius: 2px;
@@ -603,11 +603,19 @@ button.register_btn {
   padding: 7px 10px;
   border: none;
   border-radius: 2px;
-  color: #000;
+  color: var(--text-primary);
   font-size: 16px;
   font-weight: 700;
-  background: var(--text-lime-15);
+  background: var(--bg-lime-opacity);
+  border: 2px solid var(--text-lime-12);
   cursor: pointer;
+  transition: all 0.5s linear;
+}
+
+button.login_btn:hover,
+button.register_btn:hover {
+  background: var(--text-lime-15);
+  color: var(--bg-primary);
 }
 
 .external_login_divider {
