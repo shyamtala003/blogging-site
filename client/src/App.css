@@ -76,6 +76,10 @@ body {
   background: var(--bg-primary);
 }
 
+.main_container {
+  background: var(--bg-primary);
+}
+
 main {
   min-height: 100vh;
   /* background: var(--bg-primary); */
