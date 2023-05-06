@@ -49,8 +49,9 @@ const BlogView = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <>

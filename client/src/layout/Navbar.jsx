@@ -3,6 +3,7 @@ import logoDark from "../assets/Screenshot__112_-removebg-preview.png";
 import logoLight from "../assets/logo_light.png";
 import moon from "../assets/moon.svg";
 import sun from "../assets/sun.svg";
+import searchDarkIcon from "../assets/search_dark.svg";
 import Hamburger from "hamburger-react";
 import { useContext, useEffect, useState } from "react";
 
@@ -12,14 +13,19 @@ import toastMessageContext from "../context/ToastContext";
 // theme context
 import ThemeContext from "../context/ThemeContest";
 
+// searchbarContext
+import searchBarContext from "../context/SearchBarContext";
+
 import userLoggedinContext from "../context/UserLoggedin";
 import Axios from "axios";
+import SearchBar from "../components/SearchBar";
 
 const Navbar = () => {
   let { userLoggedIn, setUserLoggedIn } = useContext(userLoggedinContext);
   // toastmessage context provider
   let { setToastMessage } = useContext(toastMessageContext);
   let { theme, setTheme } = useContext(ThemeContext);
+  let { openSearchBar, setOpenSearchBar } = useContext(searchBarContext);
 
   useEffect(() => {
     let url = import.meta.env.VITE_API_URL;
@@ -68,6 +74,7 @@ const Navbar = () => {
     <>
       <nav>
         <div className="navbar_content">
+          {/* logo */}
           <Link to="/" className="logo">
             <img
               src={theme === "dark" ? logoDark : logoLight}
@@ -76,6 +83,22 @@ const Navbar = () => {
             />
           </Link>
 
+          {/*SEARCHBAR  */}
+          <div
+            className="search_btn"
+            onClick={() => {
+              setOpenSearchBar(!openSearchBar);
+            }}
+          >
+            <div className="left">
+              <img src={searchDarkIcon} alt="" />
+              <span className="search_placeholder">Find blogs...</span>
+            </div>
+            <div className="right">
+              <div className="searchbar_shortcut">Ctrl K</div>
+            </div>
+          </div>
+          {/*NAVBAR LINKS  */}
           <div className="nav_links">
             <button
               className="theme_toggler"
@@ -110,19 +133,30 @@ const Navbar = () => {
             )}
           </div>
 
-          <button
-            className="menu_toggler"
-            onClick={() => {
-              setOpenNavbar(!openNavbar);
-            }}
-          >
-            <Hamburger
-              toggled={openNavbar}
-              toggle={setOpenNavbar}
-              color={theme === "dark" ? "#fff" : "#000"}
-              size={15}
-            />
-          </button>
+          <div className="mobile_menu_buttons">
+            <button
+              className="btn_search"
+              onClick={() => {
+                setOpenSearchBar(!openSearchBar);
+              }}
+            >
+              <img src={searchDarkIcon} alt="" />
+            </button>
+
+            <button
+              className="menu_toggler"
+              onClick={() => {
+                setOpenNavbar(!openNavbar);
+              }}
+            >
+              <Hamburger
+                toggled={openNavbar}
+                toggle={setOpenNavbar}
+                color={theme === "dark" ? "#fff" : "#000"}
+                size={15}
+              />
+            </button>
+          </div>
 
           <div
             className={`mobile_menu ${openNavbar ? "navbar_open" : ""}`}
@@ -167,6 +201,8 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+
+      <SearchBar> </SearchBar>
     </>
   );
 };

@@ -174,3 +174,25 @@ exports.editPost = async (req, res) => {
     });
   }
 };
+
+// route for search blog posts
+exports.searchBlog = async (req, res) => {
+  try {
+    let key = req.params.key;
+    const regex = new RegExp(`\\b${key}\\b`, "i"); // "i" flag for case-insensitive search
+    let data = await Post.find(
+      {
+        $or: [
+          { title: { $regex: regex } },
+          { summary: { $regex: regex } },
+          { subject: { $regex: regex } },
+          // { description: { $regex: regex } },
+        ],
+      },
+      { title: 1, summary: 1, subject: 1, _id: 1 } // only return specified fields
+    ).sort({ date: -1 });
+    res.send(data);
+  } catch (error) {
+    res.status(400).json({ success: false, message: error });
+  }
+};

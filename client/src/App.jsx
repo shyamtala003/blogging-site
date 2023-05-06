@@ -16,6 +16,8 @@ import toastMessageContext from "./context/ToastContext";
 import userLoggedInContext from "./context/UserLoggedin";
 // theme context
 import ThemeContest from "./context/ThemeContest";
+// searchbarContext
+import searchBarContext from "./context/SearchBarContext";
 
 import { useEffect, useState } from "react";
 import BlogView from "./pages/BlogView";
@@ -23,6 +25,7 @@ import EditBlog from "./pages/EditBlog";
 
 function App() {
   const [toastMessage, setToastMessage] = useState({});
+  const [openSearchBar, setOpenSearchBar] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState({ value: false });
   const [theme, setTheme] = useState(
     localStorage.getItem("theme")
@@ -30,7 +33,6 @@ function App() {
       : localStorage.setItem("theme", "dark").getItem("theme")
   );
 
-  console.log(localStorage.getItem("theme"));
   useEffect(() => {
     if (toastMessage.type === "error") {
       toast.error(toastMessage.message, {
@@ -76,31 +78,35 @@ function App() {
       <userLoggedInContext.Provider value={{ userLoggedIn, setUserLoggedIn }}>
         <toastMessageContext.Provider value={{ setToastMessage }}>
           <ThemeContest.Provider value={{ theme, setTheme }}>
-            <BrowserRouter>
-              <ScrollToTop />
-              <Routes>
-                <Route path="/" element={<Layout></Layout>}>
-                  <Route index element={<IndexPage></IndexPage>}></Route>
-                  <Route path="login" element={<Login></Login>}></Route>
-                  <Route
-                    path="register"
-                    element={<Register></Register>}
-                  ></Route>
-                  <Route
-                    path="create"
-                    element={<CreatePost></CreatePost>}
-                  ></Route>
-                  <Route
-                    path="blog/:id"
-                    element={<BlogView></BlogView>}
-                  ></Route>
-                  <Route
-                    path="edit/:id"
-                    element={<EditBlog></EditBlog>}
-                  ></Route>
-                </Route>
-              </Routes>
-            </BrowserRouter>
+            <searchBarContext.Provider
+              value={{ openSearchBar, setOpenSearchBar }}
+            >
+              <BrowserRouter>
+                <ScrollToTop />
+                <Routes>
+                  <Route path="/" element={<Layout></Layout>}>
+                    <Route index element={<IndexPage></IndexPage>}></Route>
+                    <Route path="login" element={<Login></Login>}></Route>
+                    <Route
+                      path="register"
+                      element={<Register></Register>}
+                    ></Route>
+                    <Route
+                      path="create"
+                      element={<CreatePost></CreatePost>}
+                    ></Route>
+                    <Route
+                      path="blog/:id"
+                      element={<BlogView></BlogView>}
+                    ></Route>
+                    <Route
+                      path="edit/:id"
+                      element={<EditBlog></EditBlog>}
+                    ></Route>
+                  </Route>
+                </Routes>
+              </BrowserRouter>
+            </searchBarContext.Provider>
           </ThemeContest.Provider>
         </toastMessageContext.Provider>
       </userLoggedInContext.Provider>
