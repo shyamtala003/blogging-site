@@ -131,7 +131,11 @@ exports.editPost = async (req, res) => {
     // 3. upload image on cloudinary and grab image url from result
     let coverImage = currentImageUrl;
     if (req.file !== undefined) {
-      await cloudinary.v2.uploader.destroy(cloudinary.url(currentImageUrl));
+      const cloudinaryUrl = coverImage;
+      const publicId = cloudinaryUrl.match(/(?<=dotblogs\/)[^/]+(?=\.\w+$)/)[0];
+      let dimg = await cloudinary.v2.uploader.destroy(`dotblogs/${publicId}`);
+      console.log(dimg);
+
       const result = await cloudinary.v2.uploader.upload(imageFile.path, {
         folder: "dotblogs",
         format: "webp",
@@ -167,6 +171,60 @@ exports.editPost = async (req, res) => {
       success: true,
       message: { result },
     });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// edit blog posts
+exports.deletePost = async (req, res) => {
+  try {
+    // 1. get token and validate user
+    let decode;
+    const token =
+      req.cookies.token ||
+      req.body.token ||
+      (req.header("Authorization")
+        ? req.header("Authorization").replace("Bearer ", "")
+        : false);
+
+    // 2.if token to exist then send error response
+    if (!token) {
+      return res.status(402).json({ success: false, message: "Access denied" });
+    }
+
+    try {
+      decode = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (error) {
+      // if token is not validated
+      return res.status(402).json({ success: false, message: "Access denied" });
+    }
+
+    const { id } = req.params;
+
+    // 4.fetch data using id and delete
+    let post = await Post.findById(id);
+    if (post) {
+      // remove image from cloudinary
+
+      // first extract public id from url and delete image from cloudinary
+      const cloudinaryUrl = post.coverImage;
+      const publicId = cloudinaryUrl.match(/(?<=dotblogs\/)[^/]+(?=\.\w+$)/)[0];
+      await cloudinary.v2.uploader.destroy(`dotblogs/${publicId}`);
+
+      // fetch blog and delete
+      await Post.findByIdAndDelete(id);
+      return res
+        .status(200)
+        .json({ success: true, message: "Post deleted successfully" });
+    } else {
+      return res
+        .status(400)
+        .json({ success: false, message: "Post not found" });
+    }
   } catch (error) {
     res.status(400).json({
       success: false,

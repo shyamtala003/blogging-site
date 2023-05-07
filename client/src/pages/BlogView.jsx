@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import dateFormat, { masks } from "dateformat";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import editIcon from "../assets/edit.svg";
+import deleteIcon from "../assets/delete.svg";
 
 import userLoggedinContext from "../context/UserLoggedin";
+// toast message context
+import toastMessageContext from "../context/ToastContext";
 import ShareBlogLinks from "../components/ShareBlogLinks";
 
 const BlogView = () => {
@@ -15,6 +18,8 @@ const BlogView = () => {
   const [loading, setLoading] = useState(true);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const { userLoggedIn, setUserLoggedIn } = useContext(userLoggedinContext);
+  let { toastMessage, setToastMessage } = useContext(toastMessageContext);
+  let navigate = useNavigate();
 
   async function fetchData() {
     let response = await axios.get(`${url}/blog/${id}`);
@@ -22,12 +27,29 @@ const BlogView = () => {
     setLoading(false);
   }
 
+  // code for delete blog
+  async function deletePost(id) {
+    console.log(id);
+    try {
+      let response = await axios.get(`${url}/delete/${id}`);
+      setToastMessage({ type: "success", message: response.data.message });
+      navigate(`/`);
+    } catch (error) {
+      setToastMessage({
+        type: "error",
+        message: error?.response?.data?.message,
+      });
+    }
+  }
+
+  // code for play audio
   const handleButtonClick = () => {
     let message = new SpeechSynthesisUtterance(blog.current.textContent);
     setIsSpeaking(true);
     window.speechSynthesis.speak(message);
   };
 
+  // code for stop audio
   const handleStopClick = () => {
     setIsSpeaking(false);
     window.speechSynthesis.cancel();
@@ -82,11 +104,19 @@ const BlogView = () => {
           </p>
           <p className="blog_author">by @{post.author.userName}</p>
           {post.author._id && userLoggedIn.userId && (
-            <>
-              <Link to={`/edit/${id}`} className="edit_Post">
+            <div className="button_group">
+              <Link to={`/edit/${id}`} className="post_btn">
                 <img src={editIcon} alt="" /> <span>Edit</span>
               </Link>
-            </>
+              <button
+                onClick={() => {
+                  deletePost(post._id);
+                }}
+                className="post_btn"
+              >
+                <img src={deleteIcon} alt="" /> <span>Delete</span>
+              </button>
+            </div>
           )}
           <img src={post.coverImage} alt="" className="blog_image" />
           <div

@@ -31,7 +31,6 @@
   --bg-primary: #ffffff;
   --bg-secondary: #f0f3fa;
   --bg-blueis: #ebd3f9;
-
   --bg-primary-opacity: rgba(255, 255, 255, 0.5);
   --bg-secodary-opacity: rgba(255, 255, 255, 0.9);
   --bg-lime-opacity: #34d3991a;
@@ -903,22 +902,34 @@ button.submit_post:hover {
   flex-direction: column;
 }
 
-.edit_Post {
+.button_group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px 0 3% 50%;
+  transform: translateX(-50%);
+}
+
+.post_btn {
   text-decoration: none;
   max-width: 120px;
-  margin: 12px 0 3% 50%;
   padding: 8px 25px;
   font-size: 18px;
-  transform: translateX(-50%);
   background: transparent;
   border: none;
   color: var(--text-lime-15);
-  background: var(--bg-primary);
+  background: var(--bg-lime-opacity);
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 6px;
   border-radius: 5px;
+  transition: all 0.5s ease;
+}
+
+.post_btn:hover {
+  background: var(--bg-primary);
 }
 
 .audio_btn {
