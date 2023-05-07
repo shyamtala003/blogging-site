@@ -104,6 +104,7 @@ const CreatePost = () => {
   return (
     <>
       <form className="create_post" onSubmit={handlePostForm}>
+        <h1 className="form_heading">Write New Blog</h1>
         <input
           type="text"
           name="title"

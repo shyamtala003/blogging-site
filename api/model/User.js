@@ -16,6 +16,12 @@ const UserSchema = Schema({
     type: String,
     required: true,
   },
+  profilePicture: {
+    type: {
+      url: String,
+      public_id: String,
+    },
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -41,6 +47,7 @@ UserSchema.methods.generateJwtToken = function () {
     id: this._id,
     userName: this.userName,
     email: this.email,
+    profilePic: this.profilePicture.url,
   };
 
   const jwtOptions = {

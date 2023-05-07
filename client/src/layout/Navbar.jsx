@@ -43,6 +43,7 @@ const Navbar = () => {
           value: true,
           username: res.data.userName,
           userId: res.data.id,
+          profilePic: res.data.profilePic,
         });
       })
       .catch((err) => {
@@ -95,7 +96,9 @@ const Navbar = () => {
               <span className="search_placeholder">Find blogs...</span>
             </div>
             <div className="right">
-              <div className="searchbar_shortcut">Ctrl K</div>
+              <div className="searchbar_shortcut">
+                <span>Ctrl</span> + <span>K</span>
+              </div>
             </div>
           </div>
           {/*NAVBAR LINKS  */}
@@ -128,6 +131,11 @@ const Navbar = () => {
                 </Link>
                 <button onClick={logout} className="nav_link">
                   Logout ({userLoggedIn.username})
+                  {/* <img
+                    className="profile_pic"
+                    src={userLoggedIn.profilePic}
+                    alt=""
+                  /> */}
                 </button>
               </>
             )}

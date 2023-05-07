@@ -21,22 +21,25 @@ const Register = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [file, setFile] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function registerUser(e) {
     e.preventDefault();
     setLoading(true);
+
+    let data = new FormData();
+    data.set("userName", userName);
+    data.set("password", password);
+    data.set("email", String(email).toLowerCase());
+    data.set("file", file[0]);
+
     try {
+      console.log(file);
       let url = import.meta.env.VITE_API_URL;
-      let response = await Axios.post(
-        `${url}/register`,
-        {
-          userName: userName,
-          password: password,
-          email: String(email).toLowerCase(),
-        },
-        { withCredentials: true }
-      );
+      let response = await Axios.post(`${url}/register`, data, {
+        withCredentials: true,
+      });
 
       // set token into  localstorage for further use
       let token = response.data.message.token;
@@ -110,6 +113,19 @@ const Register = () => {
               setPassword(e.target.value);
             }}
             disabled={loading ? true : false}
+          />
+        </div>
+        <div className="input_group">
+          <label htmlFor="profile_img">Add Profile pic</label>
+          <input
+            type="file"
+            name="profile_pic"
+            className="input_box"
+            required
+            accept="image/*"
+            onChange={(e) => {
+              setFile(e.target.files);
+            }}
           />
         </div>
         {loading ? (

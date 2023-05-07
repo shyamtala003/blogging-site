@@ -1,11 +1,12 @@
 const User = require("../model/User");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("cloudinary");
 
 exports.register = async (req, res) => {
   try {
     //1. collect data from user
     const { userName, email, password } = req.body;
-
+    const profilePic = req.file;
     // 2. check user already exists or not
     let user = await User.findOne({ email });
 
@@ -16,8 +17,32 @@ exports.register = async (req, res) => {
       });
     }
 
+    // define the options for cropping the image
+    const cropOptions = {
+      width: 150,
+      height: 150,
+      crop: "scale",
+    };
+
+    // store profile picture on cloudinary
+    const result = await cloudinary.v2.uploader.upload(profilePic.path, {
+      crop: "crop",
+      ...cropOptions,
+      folder: "blogProfiles",
+      format: "webp",
+    });
+    const profileImage = result;
+
     // 3 store data into database
-    user = await User.create({ userName, email, password });
+    user = await User.create({
+      userName,
+      email,
+      password,
+      profilePicture: {
+        url: profileImage.secure_url,
+        public_id: profileImage.public_id,
+      },
+    });
 
     // 4.if all is good then send token in cookie
     // generate a token and send it in cookie and json response
@@ -32,10 +57,14 @@ exports.register = async (req, res) => {
       })
       .json({
         success: true,
-        message: { token, username: user.userName },
+        message: {
+          token,
+          username: user.userName,
+          profilePic: user.profilePicture.url,
+        },
       });
   } catch (error) {
-    res.status(200).json({ success: false, message: { error } });
+    res.status(400).json({ success: false, message: { error } });
   }
 };
 
@@ -82,7 +111,11 @@ exports.login = async (req, res) => {
       })
       .json({
         success: true,
-        message: { token, username: user.userName },
+        message: {
+          token,
+          username: user.userName,
+          profilePic: user.profilePicture.url,
+        },
       });
   } catch (error) {
     console.log(error);

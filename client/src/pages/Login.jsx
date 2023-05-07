@@ -38,7 +38,6 @@ const Login = () => {
 
       // set token into  localstorage for further use
       let token = response.data.message.token;
-      console.log(token);
       localStorage.setItem("token", token);
 
       setEmail("");

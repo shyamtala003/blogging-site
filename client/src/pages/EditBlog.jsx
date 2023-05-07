@@ -221,6 +221,7 @@ const EditBlog = () => {
       ) : (
         <>
           <form className="create_post" onSubmit={handleEditForm}>
+            <h1 className="form_heading">Update Blog</h1>
             <label htmlFor="title" className="editForm_label">
               Title
             </label>

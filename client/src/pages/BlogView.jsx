@@ -102,7 +102,10 @@ const BlogView = () => {
           <p className="blog_date">
             {dateFormat(post.createdAt, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
           </p>
-          <p className="blog_author">by @{post.author.userName}</p>
+          <p className="blog_author">
+            by @{post.author.userName}{" "}
+            <img src={post.author.profilePicture.url} alt="" />
+          </p>
           {post.author._id && userLoggedIn.userId && (
             <div className="button_group">
               <Link to={`/edit/${id}`} className="post_btn">
@@ -118,6 +121,7 @@ const BlogView = () => {
               </button>
             </div>
           )}
+
           <img src={post.coverImage} alt="" className="blog_image" />
           <div
             className="blog_description"
