@@ -111,6 +111,16 @@ exports.editPost = async (req, res) => {
 
     try {
       decode = jwt.verify(token, process.env.JWT_SECRET);
+      let post = await Post.findById({ _id: req.body._id })
+        .select("_id")
+        .populate("author");
+
+      // if user id from user and author id from blog both are diirent then send error
+      if (post.author._id != decode.id) {
+        return res
+          .status(403)
+          .json({ success: false, message: "Access denied" });
+      }
     } catch (error) {
       // 3.if token is not validated
       return res.status(402).send("token is not validate " + error.message);
@@ -198,6 +208,16 @@ exports.deletePost = async (req, res) => {
 
     try {
       decode = jwt.verify(token, process.env.JWT_SECRET);
+      let post = await Post.findById(req.params.id)
+        .select("_id")
+        .populate("author");
+
+      // if user id from user and author id from blog both are diirent then send error
+      if (post.author._id != decode.id) {
+        return res
+          .status(403)
+          .json({ success: false, message: "Access denied" });
+      }
     } catch (error) {
       // if token is not validated
       return res.status(402).json({ success: false, message: "Access denied" });

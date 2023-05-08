@@ -59,16 +59,22 @@ const EditBlog = () => {
   let { userLoggedIn } = useContext(userLoggedinContext);
 
   useEffect(() => {
-    if (userLoggedIn.value === false) {
-      return navigate("/");
-    } else {
-      fetchData();
-    }
+    fetchData();
   }, []);
 
   //functionf for fetching blog present data from db
   async function fetchData() {
     let response = await Axios.get(`${url}/blog/${id}`);
+
+    let user = await Axios.get(`${url}/profile`, {
+      token: localStorage.getItem("token"),
+    });
+
+    if (response.data.author._id !== user.data.id) {
+      setToastMessage({ type: "error", message: "Access denied" });
+      return navigate("/");
+    }
+
     setTitle(response.data.title);
     SetSummery(response.data.summary);
     SetSubject(response.data.subject);

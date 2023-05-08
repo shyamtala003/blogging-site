@@ -29,7 +29,6 @@ const BlogView = () => {
 
   // code for delete blog
   async function deletePost(id) {
-    console.log(id);
     try {
       let response = await axios.delete(`${url}/delete/${id}`);
       setToastMessage({ type: "success", message: response.data.message });
@@ -106,7 +105,7 @@ const BlogView = () => {
             by @{post.author.userName}{" "}
             <img src={post.author.profilePicture.url} alt="" />
           </p>
-          {post.author._id && userLoggedIn.userId && (
+          {post.author._id === userLoggedIn.userId && (
             <div className="button_group">
               <Link to={`/edit/${id}`} className="post_btn">
                 <img src={editIcon} alt="" /> <span>Edit</span>
