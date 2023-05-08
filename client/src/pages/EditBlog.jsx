@@ -97,7 +97,7 @@ const EditBlog = () => {
     let url = import.meta.env.VITE_API_URL;
 
     try {
-      let response = await Axios.post(`${url}/edit`, data, { headers });
+      let response = await Axios.put(`${url}/edit`, data, { headers });
       setLoading(false);
       setToastMessage({
         type: "success",

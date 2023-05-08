@@ -82,7 +82,7 @@ const CreatePost = () => {
     let url = import.meta.env.VITE_API_URL;
 
     try {
-      let response = await Axios.post(`${url}/post`, data, { headers });
+      let response = await Axios.post(`${url}/create`, data, { headers });
       document.querySelector(".create_post").reset();
       setLoading(false);
       setDescription("");

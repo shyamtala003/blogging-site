@@ -11,7 +11,7 @@ const IndexPage = () => {
     try {
       (async () => {
         let url = import.meta.env.VITE_API_URL;
-        let { data } = await Axios.get(`${url}/post`, {
+        let { data } = await Axios.get(`${url}/blogs`, {
           withCredentials: true,
         });
         let { message } = data;

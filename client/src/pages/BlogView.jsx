@@ -31,7 +31,7 @@ const BlogView = () => {
   async function deletePost(id) {
     console.log(id);
     try {
-      let response = await axios.get(`${url}/delete/${id}`);
+      let response = await axios.delete(`${url}/delete/${id}`);
       setToastMessage({ type: "success", message: response.data.message });
       navigate(`/`);
     } catch (error) {
