@@ -86,16 +86,17 @@ then set the following environment variables in .env
 
 ```js
 PORT=4000
-MONGO_URL=mongodb+srv://shyamtala003:shyam1234@cluster0.fcadqu5.mongodb.net/DotBlogs
-JWT_SECRET=acbshdcsh12@x$%$
+MONGO_URL=your mongdb url
+
+JWT_SECRET=your secret
 JWT_EXPIRY=2d
 COOKIE_EXPIRY=2
 
 CORS_ORIGIN=http://localhost:5173
 
-CLOUD_NAME=dohkle54p
-API_KEY=771776985633828
-API_SECRET=p2KsnaBOBrfMyveD7tOLFLmtnrs
+CLOUD_NAME=get from cloudinary 
+API_KEY=get from cloudinary 
+API_SECRET=get from cloudinary 
 ```
 
 Then, run command
