@@ -145,6 +145,7 @@ const Navbar = () => {
           <div className="mobile_menu_buttons">
             <button
               className="btn_search"
+              aria-label="search button"
               onClick={() => {
                 setOpenSearchBar(!openSearchBar);
               }}
@@ -154,6 +155,7 @@ const Navbar = () => {
 
             <button
               className="menu_toggler"
+              aria-label="menu toggler button"
               onClick={() => {
                 setOpenNavbar(!openNavbar);
               }}
