@@ -16,7 +16,7 @@
   --bg-lime-opacity: #34d3991a;
 
   --text-primary: #d7d7db;
-  --text-secondary: #a1a1a1;
+  --text-secondary: #e7e7e7;
   --text-secondary-2: #eef1f1;
   --text-lime-15: #34d399;
   --text-lime-12: #34d399cc;
@@ -510,7 +510,7 @@ main.loading_container {
   text-align: justify;
 }
 
-.blog_container h3.blog_description {
+.blog_container h2.blog_description {
   margin-top: 10px;
   font-size: 16px;
   color: var(--text-primary);
@@ -590,7 +590,7 @@ main.loading_container {
     font-weight: 700;
   }
 
-  .blog_container h3.blog_description {
+  .blog_container h2.blog_description {
     margin-top: 10px;
     font-size: 16px;
     font-weight: 400;

@@ -105,6 +105,7 @@ const Navbar = () => {
           <div className="nav_links">
             <button
               className="theme_toggler"
+              aria-label="theme_toggler"
               onClick={() => {
                 setTheme(theme === "dark" ? "light" : "dark");
                 localStorage.setItem(
@@ -175,6 +176,7 @@ const Navbar = () => {
             <div className="nav_links_mobile">
               <button
                 className="theme_toggler"
+                aria-label="theme_toggler"
                 onClick={() => {
                   setTheme(theme === "dark" ? "light" : "dark");
                   localStorage.setItem(

@@ -24,11 +24,11 @@ const BlogCard = ({
               ? String(title).slice(0, 120).concat("...")
               : title}
           </h1>
-          <h3 className="blog_description">
+          <h2 className="blog_description">
             {String(summary).length > 300
               ? String(summary).slice(0, 300).concat("...")
               : summary}
-          </h3>
+          </h2>
           <div className="author_and_publish">
             <p className="author">{author.userName}</p>
             <span className="time">
