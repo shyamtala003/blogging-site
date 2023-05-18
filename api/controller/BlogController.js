@@ -68,12 +68,15 @@ exports.createPost = async (req, res) => {
 // fetch all blog posts
 exports.getAllBlogs = async (req, res) => {
   try {
+    let { skip, limit } = req.query;
+    const count = await Post.countDocuments();
     let blogs = await Post.find()
       .select("title summary subject coverImage createdAt")
       .populate("author", "userName")
       .sort({ createdAt: -1 })
-      .limit(20);
-    res.status(200).json({ success: true, message: { ...blogs } });
+      .limit(limit)
+      .skip(skip);
+    res.status(200).json({ success: true, message: { ...blogs }, count });
   } catch (error) {
     res.status(400).json({ success: false, message: error });
   }

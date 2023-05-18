@@ -1,47 +1,61 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import BlogCard from "../components/BlogCard";
 
 import Axios from "axios";
 
 const IndexPage = () => {
   let [blogs, setBlogs] = useState([]);
-  let [loading, setLoading] = useState("true");
+  let [totalBlogs, setTotalBlogs] = useState(2);
+  let [loading, setLoading] = useState(true);
+  let [hashmore, setHashmore] = useState(true);
+  let [skip, setSkip] = useState(0);
 
-  useEffect(() => {
-    try {
-      (async () => {
-        let url = import.meta.env.VITE_API_URL;
-        let { data } = await Axios.get(`${url}/blogs`, {
-          withCredentials: true,
-        });
-        let { message } = data;
-        const response = Object.values(message).map((value) => {
-          return {
-            blogId: value._id,
-            author: value.author,
-            title: value.title,
-            subject: value.subject,
-            summary: value.summary,
-            coverImage: value.coverImage,
-            createdAt: value.createdAt,
-          };
-        });
-        setBlogs(response);
-        setLoading(false);
-      })();
-    } catch (error) {
-      console.log(error);
+  let limit = 4;
+
+  async function fetchData() {
+    setLoading(true);
+    if (skip > totalBlogs) {
+      setLoading(false);
+      setHashmore(false);
+      return;
     }
+    let url = import.meta.env.VITE_API_URL;
+    let { data } = await Axios.get(`${url}/blogs?skip=${skip}&limit=${limit}`, {
+      withCredentials: true,
+    });
+    let { message, count } = data;
+    setTotalBlogs(count);
+    const response = Object.values(message).map((value) => {
+      return {
+        blogId: value._id,
+        author: value.author,
+        title: value.title,
+        subject: value.subject,
+        summary: value.summary,
+        coverImage: value.coverImage,
+        createdAt: value.createdAt,
+      };
+    });
+    setBlogs((previousBlogs) => [...previousBlogs, ...response]);
+    setLoading(false);
+    setSkip(skip + limit);
+  }
+  useEffect(() => {
+    fetchData();
   }, []);
 
   return (
     <section className="blog_container">
-      {loading === false &&
-        blogs.length >= 0 &&
-        blogs.map((blog) => {
+      <InfiniteScroll
+        dataLength={totalBlogs}
+        next={fetchData}
+        hasMore={hashmore}
+      >
+        {blogs.map((blog, index) => {
           return (
             <BlogCard
-              key={blog.blogId}
+              key={blog.blogId + index}
               id={blog.blogId}
               title={blog.title}
               summary={blog.summary}
@@ -52,6 +66,7 @@ const IndexPage = () => {
             ></BlogCard>
           );
         })}
+      </InfiniteScroll>
 
       {/* set skeleton effect when page is loading */}
       {loading && (

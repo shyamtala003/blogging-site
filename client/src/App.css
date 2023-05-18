@@ -88,7 +88,7 @@ main {
   min-height: 100vh;
   position: relative;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 5%;
   padding: 100px 0;
   /* background: var(--bg-primary); */
   z-index: 4;
@@ -460,6 +460,7 @@ main.loading_container {
 .blog_container .blog {
   font-family: var(--font-inter);
   margin-inline: auto;
+  margin-bottom: 5%;
   width: 100%;
   display: grid;
   grid-template-columns: 0.7fr 1.3fr;
@@ -988,6 +989,7 @@ button.submit_post:hover {
 
 .blog_description p img {
   width: 100vw;
+  height: auto;
 }
 
 .full_blog_view h1.blog_title {
@@ -1135,4 +1137,9 @@ button.submit_post:hover {
   background: var(--bg-lime-opacity);
   display: inline;
   border-radius: 10px;
+}
+
+/* code for infinite scroll component */
+.infinite-scroll-component {
+  overflow: unset !important;
 }
