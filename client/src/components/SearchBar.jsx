@@ -11,19 +11,20 @@ const SearchBar = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [response, setResponse] = useState([]);
+  const [searching, setSearching] = useState(false);
 
   let inputSearch = useRef(null);
 
   // code for open and close searchbar using shortcuts
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
-      if (event.ctrlKey && event.key === "k") {
+      if (e.ctrlKey && e.key === "k") {
         // Show the search bar
         e.preventDefault();
         setOpenSearchBar(true);
       }
 
-      if (event.key === "Escape") {
+      if (e.key === "Escape") {
         e.preventDefault();
         setOpenSearchBar(false);
       }
@@ -50,9 +51,11 @@ const SearchBar = () => {
 
   //   function for searching blogs from DB
   async function searchBlog(query) {
+    setSearching(true);
     const url = import.meta.env.VITE_API_URL;
     let response = await axios.get(`${url}/search/${query}`);
     setResponse(response.data);
+    setSearching(false);
   }
 
   return (
@@ -90,20 +93,38 @@ const SearchBar = () => {
               setOpenSearchBar(true);
             }}
           />
+
+          {/* code for searching loader */}
+          {searching && (
+            <>
+              <div className="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </>
+          )}
         </div>
         <div className="suggestion_wrapper">
-          {response.map((data) => {
-            return (
-              <>
-                <SearchSuggestion
-                  key={data._id}
-                  title={data.title}
-                  id={data._id}
-                  subject={data.subject}
-                ></SearchSuggestion>
-              </>
-            );
-          })}
+          {response.length > 0 &&
+            response.map((data) => {
+              return (
+                <>
+                  <SearchSuggestion
+                    key={data._id}
+                    title={data.title}
+                    id={data._id}
+                    subject={data.subject}
+                  ></SearchSuggestion>
+                </>
+              );
+            })}
+          {response.length === 0 && (
+            <>
+              <p className="no_result">No Result Found</p>
+            </>
+          )}
         </div>
       </div>
     </div>

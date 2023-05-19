@@ -88,8 +88,8 @@ main {
   min-height: 100vh;
   position: relative;
   max-width: 1200px;
-  margin: 0 5%;
-  padding: 100px 0;
+  margin: 0 auto;
+  padding: 100px 5%;
   /* background: var(--bg-primary); */
   z-index: 4;
 }
@@ -559,9 +559,9 @@ main.loading_container {
     grid-template-columns: 1fr;
     gap: 6px;
   }
-
   .blog .blog_image {
-    max-height: 230px;
+    min-height: 200px;
+    max-height: 430px;
   }
   .blog_image img {
     border-top-left-radius: 16px;
@@ -803,6 +803,12 @@ form.create_post {
 }
 .quill {
   color: #d7d7db;
+}
+
+.ql-toolbar.ql-snow {
+  position: sticky !important;
+  top: 10%;
+  z-index: 5;
 }
 
 .ql-snow .ql-stroke {
@@ -1107,6 +1113,32 @@ button.submit_post:hover {
   outline: none;
 }
 
+.lds-ring div {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--text-lime-15);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: var(--text-lime-15) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .suggestion_wrapper {
   margin-top: 10px;
   width: 100%;
@@ -1115,6 +1147,15 @@ button.submit_post:hover {
   display: flex;
   flex-direction: column;
   gap: 1px;
+}
+
+.no_result {
+  font-size: 16px;
+  font-family: var(--font-inter);
+  margin: 12px;
+  text-align: center;
+  font-weight: 500;
+  color: var(--text-lime-15);
 }
 
 .suggestion_wrapper .links {
