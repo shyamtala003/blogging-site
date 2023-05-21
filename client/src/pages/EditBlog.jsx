@@ -59,6 +59,9 @@ const EditBlog = () => {
   let { userLoggedIn } = useContext(userLoggedinContext);
 
   useEffect(() => {
+    if (userLoggedIn.value === false) {
+      navigate("/");
+    }
     fetchData();
   }, []);
 
