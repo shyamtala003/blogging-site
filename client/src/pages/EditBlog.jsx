@@ -69,8 +69,15 @@ const EditBlog = () => {
   async function fetchData() {
     let response = await Axios.get(`${url}/blog/${id}`);
 
+    let token = await localStorage.getItem("token");
+
     let user = await Axios.get(`${url}/profile`, {
-      token: localStorage.getItem("token"),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        token: token,
+      },
     });
 
     if (response.data.author._id !== user.data.id) {
