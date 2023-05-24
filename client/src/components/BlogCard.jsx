@@ -10,6 +10,7 @@ const BlogCard = ({
   coverImage,
   author,
   createdAt,
+  profile_url,
 }) => {
   return (
     <Link to={`/blog/${id}`} className="blog_link">
@@ -30,10 +31,13 @@ const BlogCard = ({
               : summary}
           </h2>
           <div className="author_and_publish">
-            <p className="author">{author.userName}</p>
-            <span className="time">
-              {dateFormat(createdAt, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
-            </span>
+            <img src={profile_url}></img>
+            <div className="text_info">
+              <p className="author">{author.userName}</p>
+              <span className="time">
+                {dateFormat(createdAt, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+              </span>
+            </div>
           </div>
         </div>
       </div>

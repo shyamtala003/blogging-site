@@ -2,14 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import ReactQuill, { Quill } from "react-quill";
 const CodeBlock = Quill.import("formats/code-block");
 import "react-quill/dist/quill.snow.css";
-
-import userLoggedinContext from "../context/UserLoggedin";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-// toast message context
-import toastMessageContext from "../context/ToastContext";
-
-// code for code block
+import Toast from "../context/Toast";
+import UserLoggedin from "../context/UserLoggedin";
 
 function insertCodeBlock() {
   const range = this.quill.getSelection();
@@ -48,7 +44,7 @@ const CreatePost = () => {
   let navigate = useNavigate();
 
   // toastmessage context provider
-  let { setToastMessage } = useContext(toastMessageContext);
+  const { toastMessage, set_toast } = Toast();
 
   const [loading, setLoading] = useState(false);
 
@@ -58,9 +54,9 @@ const CreatePost = () => {
   const [files, setFiles] = useState("");
   const [description, setDescription] = useState("");
 
-  let { userLoggedIn } = useContext(userLoggedinContext);
+  const { isUserLoggedin, set_isUserLoggedin } = UserLoggedin();
   useEffect(() => {
-    if (userLoggedIn.value === false) {
+    if (isUserLoggedin.value === false) {
       navigate("/");
     }
   }, []);
@@ -86,18 +82,16 @@ const CreatePost = () => {
       document.querySelector(".create_post").reset();
       setLoading(false);
       setDescription("");
-      setToastMessage({
-        type: "success",
-        message: "New Blog Post  Added",
-      });
+      set_toast("success", "New Blog Post  Added");
       navigate("/");
     } catch (error) {
       setLoading(false);
       console.log(error);
-      setToastMessage({
-        type: "error",
-        message: error?.response?.data?.message,
-      });
+      // setToastMessage({
+      //   type: "error",
+      //   message: error?.response?.data?.message,
+      // });
+      set_toast("error", error?.response?.data?.message);
     }
   }
 

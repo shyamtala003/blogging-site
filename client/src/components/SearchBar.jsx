@@ -1,14 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import serarchIcons from "../assets/search_dark.svg";
 import SearchSuggestion from "./SearchSuggestion";
 import axios from "axios";
-
-// searchbarContext
-import searchBarContext from "../context/SearchBarContext";
+import searchBarContext from "../context/SearchBar";
 
 const SearchBar = () => {
-  const { openSearchBar, setOpenSearchBar } = useContext(searchBarContext);
-
+  const { openSearchBar, set_openSearchBar } = searchBarContext();
   const [searchQuery, setSearchQuery] = useState("");
   const [response, setResponse] = useState([]);
   const [searching, setSearching] = useState(false);
@@ -21,22 +18,18 @@ const SearchBar = () => {
       if (e.ctrlKey && e.key === "k") {
         // Show the search bar
         e.preventDefault();
-        setOpenSearchBar(true);
+        set_openSearchBar(true);
+        setSearchQuery("");
+        inputSearch.current.focus();
       }
 
       if (e.key === "Escape") {
         e.preventDefault();
-        setOpenSearchBar(false);
+        set_openSearchBar(false);
+        inputSearch.current.blur();
       }
     });
   }, []);
-
-  //   when search bar is opened then input field in on focus
-  useEffect(() => {
-    if (inputSearch.current) {
-      inputSearch.current.focus();
-    }
-  }, [SearchBar]);
 
   // function for searching blogs
   async function handleSearchBlog(e) {
@@ -62,7 +55,7 @@ const SearchBar = () => {
     <div
       className={`search_bar ${openSearchBar ? "searchbar_open" : ""}`}
       onClick={() => {
-        setOpenSearchBar(!openSearchBar);
+        set_openSearchBar(!openSearchBar);
         setSearchQuery("");
         setResponse([]);
       }}
@@ -70,7 +63,7 @@ const SearchBar = () => {
       <div
         className="search_wrapper"
         onClick={() => {
-          setOpenSearchBar(!openSearchBar);
+          set_openSearchBar(!openSearchBar);
           setSearchQuery("");
           setResponse([]);
         }}
@@ -78,7 +71,7 @@ const SearchBar = () => {
         <div
           className="search_box"
           onClick={() => {
-            setOpenSearchBar(true);
+            set_openSearchBar(true);
           }}
         >
           <img src={serarchIcons} alt="" />
@@ -90,7 +83,7 @@ const SearchBar = () => {
             placeholder="Find something..."
             onClick={(e) => {
               e.stopPropagation();
-              setOpenSearchBar(true);
+              set_openSearchBar(true);
             }}
           />
 

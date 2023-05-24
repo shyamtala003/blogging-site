@@ -1,38 +1,22 @@
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import "./App.css";
 import Layout from "./layout/Layout";
 import IndexPage from "./pages/IndexPage";
 import ScrollToTop from "./components/ScrollToTop";
-import "./App.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreatePost from "./pages/CreatePost";
-
-// toast message context
-import toastMessageContext from "./context/ToastContext";
-// userloggedin context
-import userLoggedInContext from "./context/UserLoggedin";
-// theme context
-import ThemeContest from "./context/ThemeContest";
-// searchbarContext
-import searchBarContext from "./context/SearchBarContext";
-
-import { useEffect, useState } from "react";
 import BlogView from "./pages/BlogView";
 import EditBlog from "./pages/EditBlog";
+import Toast from "./context/Toast";
+import Theme from "./context/Theme";
 
 function App() {
-  const [toastMessage, setToastMessage] = useState({});
-  const [openSearchBar, setOpenSearchBar] = useState(false);
-  const [userLoggedIn, setUserLoggedIn] = useState({ value: false });
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme")
-      ? localStorage.getItem("theme")
-      : localStorage.setItem("theme", "dark").getItem("theme")
-  );
-
+  const { toastMessage, set_toast } = Toast();
+  const { theme } = Theme();
   useEffect(() => {
     if (toastMessage.type === "error") {
       toast.error(toastMessage.message, {
@@ -43,10 +27,10 @@ function App() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
+        theme: theme,
       });
     }
-    if (toastMessage.type === "success") {
+    if (toastMessage?.type === "success") {
       toast.success(toastMessage.message, {
         position: "top-right",
         autoClose: 5000,
@@ -55,7 +39,7 @@ function App() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
+        theme: theme,
       });
     }
   }, [toastMessage]);
@@ -75,41 +59,19 @@ function App() {
         theme="colored"
       />
 
-      <userLoggedInContext.Provider value={{ userLoggedIn, setUserLoggedIn }}>
-        <toastMessageContext.Provider value={{ setToastMessage }}>
-          <ThemeContest.Provider value={{ theme, setTheme }}>
-            <searchBarContext.Provider
-              value={{ openSearchBar, setOpenSearchBar }}
-            >
-              <BrowserRouter>
-                <ScrollToTop />
-                <Routes>
-                  <Route path="/" element={<Layout></Layout>}>
-                    <Route index element={<IndexPage></IndexPage>}></Route>
-                    <Route path="login" element={<Login></Login>}></Route>
-                    <Route
-                      path="register"
-                      element={<Register></Register>}
-                    ></Route>
-                    <Route
-                      path="create"
-                      element={<CreatePost></CreatePost>}
-                    ></Route>
-                    <Route
-                      path="blog/:id"
-                      element={<BlogView></BlogView>}
-                    ></Route>
-                    <Route
-                      path="edit/:id"
-                      element={<EditBlog></EditBlog>}
-                    ></Route>
-                  </Route>
-                </Routes>
-              </BrowserRouter>
-            </searchBarContext.Provider>
-          </ThemeContest.Provider>
-        </toastMessageContext.Provider>
-      </userLoggedInContext.Provider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Layout></Layout>}>
+            <Route index element={<IndexPage></IndexPage>}></Route>
+            <Route path="login" element={<Login></Login>}></Route>
+            <Route path="register" element={<Register></Register>}></Route>
+            <Route path="create" element={<CreatePost></CreatePost>}></Route>
+            <Route path="blog/:id" element={<BlogView></BlogView>}></Route>
+            <Route path="edit/:id" element={<EditBlog></EditBlog>}></Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

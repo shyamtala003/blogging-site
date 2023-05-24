@@ -35,6 +35,7 @@ const IndexPage = () => {
         summary: value.summary,
         coverImage: value.coverImage,
         createdAt: value.createdAt,
+        userImageUrl: value.author.profilePicture.url,
       };
     });
     setBlogs((previousBlogs) => [...previousBlogs, ...response]);
@@ -63,6 +64,7 @@ const IndexPage = () => {
               coverImage={blog.coverImage}
               author={blog.author}
               createdAt={blog.createdAt}
+              profile_url={blog.userImageUrl}
             ></BlogCard>
           );
         })}

@@ -110,7 +110,7 @@ main {
   content: "";
   position: fixed;
   top: 16%;
-  left: 0;
+  left: -10%;
   height: 50vh;
   width: 110%;
   background: linear-gradient(
@@ -521,10 +521,22 @@ main.loading_container {
 }
 
 .blog_container .author_and_publish {
-  margin-top: 20px;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.author_and_publish img {
+  border-radius: 50%;
+  height: 32px;
+}
+
+.author_and_publish .text_info {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .author_and_publish .author {
@@ -809,6 +821,7 @@ form.create_post {
   position: sticky !important;
   top: 10%;
   z-index: 5;
+  backdrop-filter: blur(12px);
 }
 
 .ql-snow .ql-stroke {
@@ -863,7 +876,7 @@ button.submit_post {
 }
 
 button.submit_post:hover {
-  background: var(--text-lime-15);
+  background: var(--text-lime-12);
   color: var(--bg-primary);
 }
 

@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import ReactQuill, { Quill } from "react-quill";
-const CodeBlock = Quill.import("formats/code-block");
-import "react-quill/dist/quill.snow.css";
-
-import userLoggedinContext from "../context/UserLoggedin";
 import { useNavigate, useParams } from "react-router-dom";
+import "react-quill/dist/quill.snow.css";
+import UserLoggedin from "../context/UserLoggedin";
 import Axios from "axios";
+import Toast from "../context/Toast";
+
 // toast message context
-import toastMessageContext from "../context/ToastContext";
 
 // code for code block
 
@@ -44,9 +43,6 @@ const modules = {
 const EditBlog = () => {
   let navigate = useNavigate();
 
-  // toastmessage context provider
-  let { toastMessage, setToastMessage } = useContext(toastMessageContext);
-
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [summery, SetSummery] = useState("");
@@ -54,12 +50,13 @@ const EditBlog = () => {
   const [files, setFiles] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
   const [description, setDescription] = useState("");
+  const { isUserLoggedin, set_isUserLoggedin } = UserLoggedin();
   const url = import.meta.env.VITE_API_URL;
   const { id } = useParams();
-  let { userLoggedIn } = useContext(userLoggedinContext);
+  const { toastMessage, set_toast } = Toast();
 
   useEffect(() => {
-    if (userLoggedIn.value === false) {
+    if (isUserLoggedin.value === false) {
       navigate("/");
     }
     fetchData();
@@ -115,17 +112,11 @@ const EditBlog = () => {
     try {
       let response = await Axios.put(`${url}/edit`, data, { headers });
       setLoading(false);
-      setToastMessage({
-        type: "success",
-        message: "Blog Successfully Edited.",
-      });
+      set_toast("success", "Blog Successfully Edited.");
       navigate(`/blog/${id}`);
     } catch (error) {
       setLoading(false);
-      setToastMessage({
-        type: "error",
-        message: error?.response?.data?.message,
-      });
+      set_toast("success", error?.response?.data?.message);
     }
   }
 

@@ -1,26 +1,26 @@
 import { useContext, useState } from "react";
-import logo from "../assets/Screenshot__112_-removebg-preview.png";
-import googleLogo from "../assets/google.svg";
-import Axios from "axios";
 import { useNavigate } from "react-router-dom";
-// toast message context
-import toastMessageContext from "../context/ToastContext";
-
-// user is loggedin or not context
-import userLoggedinContext from "../context/UserLoggedin";
+import logoDark from "../assets/Screenshot__112_-removebg-preview.png";
+import logoLight from "../assets/logo_light.png";
+// import googleLogo from "../assets/google.svg";
+import Axios from "axios";
+import Toast from "../context/Toast";
+import Theme from "../context/Theme";
+import UserLoggedin from "../context/UserLoggedin";
 
 const Login = () => {
   // toastmessage context
-  let { setToastMessage } = useContext(toastMessageContext);
+  const { toastMessage, set_toast } = Toast();
 
   // userloggedn provider
-  let { userLoggedIn, setUserLoggedIn } = useContext(userLoggedinContext);
+  let { isUserLoggedin, set_isUserLoggedin } = UserLoggedin();
 
   let navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { theme } = Theme();
 
   async function loginUser(e) {
     e.preventDefault();
@@ -43,25 +43,23 @@ const Login = () => {
       setEmail("");
       setPassword("");
       setLoading(false);
-      setUserLoggedIn({
-        value: true,
-        username: response.data.message.username,
-      });
+      set_isUserLoggedin(true, response.data.message.username);
       navigate("/");
     } catch (error) {
       if (error.response.data.success === false) {
         setLoading(false);
-        setToastMessage({
-          type: "error",
-          message: error.response.data.message,
-        });
+        set_toast("error", error.response.data.message);
       }
     }
   }
 
   return (
     <div className="register">
-      <img src={logo} alt="" className="form_logo" />
+      <img
+        src={theme === "dark" ? logoDark : logoLight}
+        alt=""
+        className="form_logo"
+      />
       <h1 className="form_heading">Login</h1>
       <form className="form" onSubmit={loginUser}>
         <div className="input_group">

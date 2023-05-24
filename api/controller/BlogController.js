@@ -72,7 +72,7 @@ exports.getAllBlogs = async (req, res) => {
     const count = await Post.countDocuments();
     let blogs = await Post.find()
       .select("title summary subject coverImage createdAt")
-      .populate("author", "userName")
+      .populate({ path: "author", select: "userName profilePicture" })
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip(skip);

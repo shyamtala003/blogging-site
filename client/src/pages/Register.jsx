@@ -3,19 +3,12 @@ import logo from "../assets/Screenshot__112_-removebg-preview.png";
 import googleLogo from "../assets/google.svg";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-// userloggedin context
+import Toast from "../context/Toast";
 import userLoggedinContext from "../context/UserLoggedin";
 
-// toast message context
-import toastMessageContext from "../context/ToastContext";
-
 const Register = () => {
-  // toastmessage provider
-  let { setToastMessage } = useContext(toastMessageContext);
-
-  // userloggedn provider
-  let { userLoggedIn, setUserLoggedIn } = useContext(userLoggedinContext);
+  const { toastMessage, set_toast } = Toast();
+  const { isUserLoggedin, set_isUserLoggedin } = UserLoggedin();
   let navigate = useNavigate();
 
   const [userName, setUserName] = useState("");
@@ -49,18 +42,16 @@ const Register = () => {
       setEmail("");
       setPassword("");
       setLoading(false);
-      setUserLoggedIn({
+      set_isUserLoggedin({
         value: true,
         username: response.data.message.username,
       });
+      set_toast("success", "welcome to protocol blogs😊");
       navigate("/");
     } catch (error) {
       if (error.response.data.success === false) {
         setLoading(false);
-        setToastMessage({
-          type: "error",
-          message: error.response.data.message,
-        });
+        set_toast("error", error.response.data.message);
       }
     }
   }

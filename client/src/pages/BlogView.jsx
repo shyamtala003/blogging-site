@@ -4,10 +4,8 @@ import axios from "axios";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import editIcon from "../assets/edit.svg";
 import deleteIcon from "../assets/delete.svg";
-
-import userLoggedinContext from "../context/UserLoggedin";
-// toast message context
-import toastMessageContext from "../context/ToastContext";
+import UserLoggedin from "../context/UserLoggedin";
+import Toast from "../context/Toast";
 import ShareBlogLinks from "../components/ShareBlogLinks";
 
 const BlogView = () => {
@@ -17,8 +15,8 @@ const BlogView = () => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const { userLoggedIn, setUserLoggedIn } = useContext(userLoggedinContext);
-  let { toastMessage, setToastMessage } = useContext(toastMessageContext);
+  const { toastMessage, set_toast } = Toast();
+  const { isUserLoggedin, set_isUserLoggedin } = UserLoggedin();
   let navigate = useNavigate();
 
   async function fetchData() {
@@ -31,13 +29,10 @@ const BlogView = () => {
   async function deletePost(id) {
     try {
       let response = await axios.delete(`${url}/delete/${id}`);
-      setToastMessage({ type: "success", message: response.data.message });
+      set_toast("success", response.data.message);
       navigate(`/`);
     } catch (error) {
-      setToastMessage({
-        type: "error",
-        message: error?.response?.data?.message,
-      });
+      set_toast("error", error?.response?.data?.message);
     }
   }
 
@@ -105,7 +100,7 @@ const BlogView = () => {
             by @{post.author.userName}{" "}
             <img src={post.author.profilePicture.url} alt="" />
           </p>
-          {post.author._id === userLoggedIn.userId && (
+          {post.author._id === isUserLoggedin.userId && (
             <div className="button_group">
               <Link to={`/edit/${id}`} className="post_btn">
                 <img src={editIcon} alt="" /> <span>Edit</span>

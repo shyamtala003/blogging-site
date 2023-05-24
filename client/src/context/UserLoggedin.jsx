@@ -1,3 +1,11 @@
-import { createContext } from "react";
+import { create } from "zustand";
 
-export default createContext();
+const UserLoggedin = create((set) => ({
+  isUserLoggedin: { value: false },
+  set_isUserLoggedin: (data) =>
+    set((state) => ({
+      isUserLoggedin: (state.isUserLoggedin = data),
+    })),
+}));
+
+export default UserLoggedin;

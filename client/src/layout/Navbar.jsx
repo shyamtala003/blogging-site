@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logoDark from "../assets/Screenshot__112_-removebg-preview.png";
 import logoLight from "../assets/logo_light.png";
@@ -5,27 +6,19 @@ import moon from "../assets/moon.svg";
 import sun from "../assets/sun.svg";
 import searchDarkIcon from "../assets/search_dark.svg";
 import Hamburger from "hamburger-react";
-import { useContext, useEffect, useState } from "react";
-
-// toast message context
-import toastMessageContext from "../context/ToastContext";
-
-// theme context
-import ThemeContext from "../context/ThemeContest";
-
-// searchbarContext
-import searchBarContext from "../context/SearchBarContext";
-
-import userLoggedinContext from "../context/UserLoggedin";
+import Toast from "../context/Toast";
+import Theme from "../context/Theme";
+import SearchBarContext from "../context/SearchBar";
+import UserLoggedin from "../context/UserLoggedin";
 import Axios from "axios";
 import SearchBar from "../components/SearchBar";
 
 const Navbar = () => {
-  let { userLoggedIn, setUserLoggedIn } = useContext(userLoggedinContext);
   // toastmessage context provider
-  let { setToastMessage } = useContext(toastMessageContext);
-  let { theme, setTheme } = useContext(ThemeContext);
-  let { openSearchBar, setOpenSearchBar } = useContext(searchBarContext);
+  const { set_toast } = Toast();
+  const { theme, toggle_theme } = Theme();
+  const { openSearchBar, set_openSearchBar } = SearchBarContext();
+  const { isUserLoggedin, set_isUserLoggedin } = UserLoggedin();
 
   useEffect(() => {
     let url = import.meta.env.VITE_API_URL;
@@ -39,7 +32,7 @@ const Navbar = () => {
       },
     })
       .then((res) => {
-        setUserLoggedIn({
+        set_isUserLoggedin({
           value: true,
           username: res.data.userName,
           userId: res.data.id,
@@ -60,11 +53,8 @@ const Navbar = () => {
     Axios.defaults.withCredentials = true;
     Axios.post(`${url}/logout`)
       .then((res) => {
-        setUserLoggedIn({ value: false });
-        setToastMessage({
-          type: "success",
-          message: "user logged Out successfully",
-        });
+        set_isUserLoggedin({ value: false });
+        set_toast("success", "user logged Out successfully");
       })
       .catch((err) => {
         console.log(err.message);
@@ -88,7 +78,7 @@ const Navbar = () => {
           <div
             className="search_btn"
             onClick={() => {
-              setOpenSearchBar(!openSearchBar);
+              set_openSearchBar(!openSearchBar);
             }}
           >
             <div className="left">
@@ -107,16 +97,12 @@ const Navbar = () => {
               className="theme_toggler"
               aria-label="theme_toggler"
               onClick={() => {
-                setTheme(theme === "dark" ? "light" : "dark");
-                localStorage.setItem(
-                  "theme",
-                  theme === "dark" ? "light" : "dark"
-                );
+                toggle_theme();
               }}
             >
               <img src={theme === "dark" ? sun : moon} alt="" />
             </button>
-            {!userLoggedIn.value ? (
+            {!isUserLoggedin.value ? (
               <>
                 <Link to="/login" className="nav_link">
                   Log in
@@ -131,12 +117,12 @@ const Navbar = () => {
                   Create New Post
                 </Link>
                 <button onClick={logout} className="nav_link">
-                  Logout ({userLoggedIn.username})
-                  {/* <img
+                  Logout ({isUserLoggedin.username})
+                  <img
                     className="profile_pic"
-                    src={userLoggedIn.profilePic}
+                    src={isUserLoggedin.profilePic}
                     alt=""
-                  /> */}
+                  />
                 </button>
               </>
             )}
@@ -147,7 +133,7 @@ const Navbar = () => {
               className="btn_search"
               aria-label="search button"
               onClick={() => {
-                setOpenSearchBar(!openSearchBar);
+                set_openSearchBar(!openSearchBar);
               }}
             >
               <img src={searchDarkIcon} alt="" />
@@ -180,17 +166,13 @@ const Navbar = () => {
                 className="theme_toggler"
                 aria-label="theme_toggler"
                 onClick={() => {
-                  setTheme(theme === "dark" ? "light" : "dark");
-                  localStorage.setItem(
-                    "theme",
-                    theme === "dark" ? "light" : "dark"
-                  );
+                  toggle_theme();
                 }}
               >
                 <img src={theme === "dark" ? sun : moon} alt="" />
                 {theme === "dark" ? "Light" : "Dark"}
               </button>
-              {!userLoggedIn.value ? (
+              {!isUserLoggedin.value ? (
                 <>
                   <Link to="/login" className="nav_link">
                     Log in
@@ -205,7 +187,7 @@ const Navbar = () => {
                     Create New Post
                   </Link>
                   <button onClick={logout} className="nav_link  logout">
-                    Logout ({userLoggedIn.username})
+                    Logout ({isUserLoggedin.username})
                   </button>
                 </>
               )}
