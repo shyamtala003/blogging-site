@@ -49,7 +49,7 @@ const IndexPage = () => {
   return (
     <section className="blog_container">
       <InfiniteScroll
-        dataLength={totalBlogs}
+        dataLength={blogs.length}
         next={fetchData}
         hasMore={hashmore}
       >
