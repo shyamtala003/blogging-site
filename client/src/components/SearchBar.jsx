@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import serarchIcons from "../assets/search_dark.svg";
 import SearchSuggestion from "./SearchSuggestion";
 import axios from "axios";
@@ -31,19 +31,28 @@ const SearchBar = () => {
     });
   }, []);
 
+  useEffect(() => {
+    let handler = setTimeout(() => {
+      searchBlog();
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchQuery]);
+
   // function for searching blogs
-  async function handleSearchBlog(e) {
-    await setSearchQuery(e.target.value);
-    if (e.target.value.length > 0) {
-      searchBlog(e.target.value);
-    } else {
+  function handleSearchBlog(e) {
+    setSearchQuery(e.target.value);
+    if (!e.target.value.length > 0) {
       setSearchQuery("");
       setResponse([]);
     }
   }
 
   //   function for searching blogs from DB
-  async function searchBlog(query) {
+  async function searchBlog() {
+    let query = searchQuery;
     setSearching(true);
     const url = import.meta.env.VITE_API_URL;
     let response = await axios.get(`${url}/search/${query}`);
@@ -103,14 +112,12 @@ const SearchBar = () => {
           {response.length > 0 &&
             response.map((data) => {
               return (
-                <>
-                  <SearchSuggestion
-                    key={data._id}
-                    title={data.title}
-                    id={data._id}
-                    subject={data.subject}
-                  ></SearchSuggestion>
-                </>
+                <SearchSuggestion
+                  key={data._id}
+                  title={data.title}
+                  id={data._id}
+                  subject={data.subject}
+                ></SearchSuggestion>
               );
             })}
           {response.length === 0 && (
