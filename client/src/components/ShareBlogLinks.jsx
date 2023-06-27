@@ -15,6 +15,8 @@ import {
   WhatsappIcon,
   InstapaperIcon,
 } from "react-share";
+import { Helmet } from "react-helmet";
+
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const ShareBlogLinks = ({ url, title, imageUrl }) => {
@@ -24,6 +26,23 @@ const ShareBlogLinks = ({ url, title, imageUrl }) => {
 
   return (
     <div className="share_container">
+       <Helmet>
+        <meta
+          property="og:url"
+          content={
+            "https://plm-staging.s3.amazonaws.com/images/21_06_2023_17_30_412.jpg"
+          }
+        />
+        <meta property="og:title" content={"ploom web app"} />
+        <meta property="og:description" content={"lorem iplsum ldollar"} />
+        <meta
+          property="og:image"
+          content={
+            "https://plm-staging.s3.amazonaws.com/images/21_06_2023_17_30_412.jpg"
+          }
+        />
+      </Helmet>
+      
       <button
         className="share_btn"
         onClick={() => {
